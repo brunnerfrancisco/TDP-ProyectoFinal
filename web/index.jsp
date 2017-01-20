@@ -1,3 +1,5 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="s" uri="/struts-tags"  %>
 <!DOCTYPE html>
@@ -16,23 +18,18 @@ and open the template in the editor.
     <body>
         <div id="container">
             <a id="head">
-		<div style="float:left;">
-			hola mami
-		</div>
 		<div id="tit">
 			Proyecto Final TDP
 		</div>
             </a>
-            <div id="loguin">
-		
-                <s:form action="logueo" method="post"> 
-                    Usuario: <input type="text" name="user" size=10> 
-                    ContraseÃ±a: <input type="password" name="pass" size=10> 
-                    <input type="hidden" name="loguear" value="si">
-                    <a href="/Proyecto_Final" id="button_enviar">Ingresar</a>
-                    <a href="/Proyecto_Final" id="button_enviar">Registro</a>
-                </s:form>
-            </div>
+            <header>
+                    <h1></h1>
+                    <s:form action="login">
+                            <label id="label">Usuario: <s:textfield name="userName" id="user"/></label>
+                            <label id="label">Password: <s:password name="password" id="pass"/></label>
+                            <s:submit value="Login"/>
+                    </s:form>
+            </header>
             <div id="body">
 		<div id="menu">
 			
