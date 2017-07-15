@@ -1,0 +1,189 @@
+html{
+	background-color:#D6FDD6;
+}
+
+#contenedor{
+	width:800px;
+	margin: 0 auto 0 auto;
+}
+/*------HEADER------------------------------------------------------------------------------------------------------------*/
+header{
+	width:100%;
+	height:100px;
+}
+
+#titulo{
+	float:left;
+	width:800px;
+	text-align:center;
+	font-size:50px;
+	margin-top:20px;
+}
+
+/*-------NAVEGACION-----------------------------------------------------------------------------------------------------------*/
+nav{
+	width:100%;
+	height:30px;
+	border:3px BLACK;
+}
+
+.itemNav{
+	width:auto;
+	float:left;
+	padding:5px;
+	background-color:#91A78D;
+	text-decoration:none;
+	margin:1px;
+	border-radius:5px;
+	text-shadow:none;
+}
+
+.itemNav:hover{
+	background-color:#394D35;
+	color:#FFFFFF;
+}
+
+#separadorNavSec{
+	background-color:#709969;
+	width:800px;
+	height:5px;
+	border-radius:2px;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+/*------------------------------------------------------------------------------------------------------------------*/
+#contenedor2{
+	width:800px;
+	float:left;
+}
+
+/*----SECCION--------------------------------------------------------------------------------------------------------------*/
+section{
+	width:600px;
+	float:left;
+}
+/*----PARTIDOS-----*/
+#titPartidosDisponibles{
+	with:600px;
+	text-align:center;
+	font-size:30px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#partidosDisponibles{
+	margin: 0 auto 0 auto;
+	background-color:#5EA752;
+	padding-top:3px;
+	padding-bottom:3px;
+	border-radius:7px;
+	margin-bottom:10px;
+}
+
+td{
+	width:300px;
+}
+
+#tablaPartidosDisponibles{
+	text-align:center;
+	margin: 0 auto 0 auto;
+}
+
+#botonInscribirse{
+	width:600px;
+	text-align:center;
+}
+
+#titInscriptos{
+	width:600px;
+	text-align:center;
+	font-size:25px;
+	margin-top:10px;
+	margin-bottom:5px;
+}
+
+#nombreInscriptos{
+	width:600px;
+	text-align:center;
+	margin-top:5px;
+}
+
+/*----JUGADORES-----*/
+#titJugadores{
+	with:600px;
+	text-align:center;
+	font-size:30px;
+	margin-top:10px;
+	margin-bottom:10px;
+	border-radius:7px;
+}
+
+#jugadores{
+	margin: 0 auto 0 auto;
+	background-color:#5EA752;
+	padding-top:3px;
+	padding-bottom:3px;
+	margin-bottom:10px;
+	border-radius:7px;
+}
+
+/*---LOGUEO---------------------------------------------------------------------------------------------------------------*/
+aside{
+	float:left;
+	width:200px;
+}
+
+#titLoguin{
+	width:200px;
+	text-align:center;
+	font-size:25px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+#labelUser{
+	width:100px;
+	text-align:center;
+	font-size:15px;
+	float:left;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+#inputUser{
+	width:100px;
+	float:left;
+	text-align:center;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+#labelPass{
+	width:100px;
+	text-align:center;
+	font-size:15px;
+	float:left;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+#inputPass{
+	width:100px;
+	float:left;
+	text-align:center;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+#botonIngresar{
+	float:left;
+	width:200px;
+	text-align:center;
+	margin-top:3px;
+	margin-bottom:3px;
+}
+
+footer{
+	text-align:center;
+}
