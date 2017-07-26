@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <package name="default" extends="struts-default">
+    	
+    	<interceptors>
+			<interceptor class="interceptors.LoginInterceptor" name="loginInterceptor">
+			</interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+		
+    	<action name="index">
+    		<result>/index.jsp</result>
+    	</action>
+        
+        <action name="index" class="actions.NavegacionController" method="index">
+        	<result>/index.jsp</result>
+        </action>
+        
+        <action name="equipos" class="actions.NavegacionController" method="equipos">
+        	<result>/equipos.jsp</result>
+        </action>
+        
+        <action name="jugadores" class="actions.NavegacionController" method="jugadores">
+        	<result>/jugadores.jsp</result>
+        </action>
+        
+        <action name="agregarPartido" class="actions.NavegacionController" method="agregarPartido">
+        	<result>/agregarPartido.jsp</result>
+        </action>
+        
+        <action name="registrarPartido" class="actions.AgregarPartidoController" method="agregarPartido">
+        	<result name="SUCCESS">/registroCorrecto.jsp</result>
+        	<result name="ERROR">/error.jsp</result>
+        </action>
+        
+        <action name="Login" class="actions.LoginAction" method="login">
+                <result name="SUCCESS">/index.jsp</result>
+                <result name="ERROR">/errorLogin.jsp</result>
+        </action>
+        
+        <action name="LogOut" class="actions.LoginAction" method="logout">
+                <result name="SUCCESS">/index.jsp</result>
+        </action>
+        
+        <action name="Logout">
+            <result>/index.jsp</result>
+        </action>
+        
+        <action name="ErrorLogin">
+            <result>/index.jsp</result>
+        </action>
+        
+    </package>
+</struts>
