@@ -1,5 +1,6 @@
 html{
 	background-color:#D6FDD6;
+	font-family: Verdana, Arial, sans-serif;
 }
 
 #contenedor{
@@ -12,7 +13,10 @@ header{
 	height:100px;
 }
 
-#titulo{
+.titulo{
+	text-decoration:none;
+	text-shadow:none;
+	color:#000000;
 	float:left;
 	width:800px;
 	text-align:center;
@@ -94,7 +98,7 @@ td{
 
 /*------INSCRIPCION-------*/
 #botonInscribirse{
-	width:600px;
+	width:auto;
 	text-align:center;
 }
 
@@ -120,6 +124,23 @@ td{
 #separadorPartidoInscriptos{
 	width:600px;
 	height:10px;
+}
+
+.bntInscribirse{
+	width:auto;
+	padding:5px;
+	background-color:#91A78D;
+	text-decoration:none;
+	margin:1px;
+	border-radius:5px;
+	text-shadow:none;
+	text-decoration:none;
+	color:#000000;
+}
+
+.bntInscribirse:hover{
+	background-color:#394D35;
+	color:#FFFFFF;
 }
 
 /*----JUGADORES-----*/

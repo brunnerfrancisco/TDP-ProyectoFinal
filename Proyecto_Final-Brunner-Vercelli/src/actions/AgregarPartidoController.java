@@ -1,7 +1,10 @@
 package actions;
 
+import java.io.IOException;
+
 import com.opensymphony.xwork2.ActionSupport;
 
+import models.ColeccionPartidos;
 import models.Partido;
 
 public class AgregarPartidoController extends ActionSupport {
@@ -21,6 +24,11 @@ public class AgregarPartidoController extends ActionSupport {
 		partido.setHora(hora);
 		partido.setPrecio(precio);
 		partido.setCantidadJugadores(cantidadJugadores);
+		try {
+			ColeccionPartidos partidos=new ColeccionPartidos();
+			System.out.println(partidos.toString());
+			partidos.agregarPartido(partido);
+		}catch (IOException e) {}
 		return "SUCCESS";
 	}
 	public String getLugar() {

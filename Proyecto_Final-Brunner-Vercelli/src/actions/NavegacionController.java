@@ -25,4 +25,9 @@ public class NavegacionController extends ActionSupport {
 		return SUCCESS;
 	}
 	
+	public String inscripcion()
+	{
+		return SUCCESS;
+	}
+	
 }

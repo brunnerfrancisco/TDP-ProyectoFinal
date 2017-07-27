@@ -10,7 +10,7 @@
 	<body>
 		<div id="contenedor">
 			<header>
-				<div id="titulo">TDP Proyecto Final 2017</div>
+				<s:a action="index" cssClass="titulo">TDP Proyecto Final 2017</s:a>
 			</header>
 			<nav>
 				<a href="index.jsp" class="itemNav"> Inicio </a>

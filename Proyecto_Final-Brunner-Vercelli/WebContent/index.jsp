@@ -4,13 +4,13 @@
 <html>
 	<head>
 		<title> Proyecto Final Bunner - Vercelli</title>
-		<link rel="stylesheet" href="CSS/styles.css?1.0.1">
+		<link rel="stylesheet" href="CSS/styles.css?1.0.0">
 		<link rel="icon" type="image/png" href="CSS/mifavicon.png" />
 	</head>
 	<body>
 		<div id="contenedor">
 			<header>
-				<div id="titulo">TDP Proyecto Final 2017</div>
+				<s:a action="index" cssClass="titulo">TDP Proyecto Final 2017</s:a>
 			</header>
 			<nav>
 				<s:a action="index" cssClass="itemNav"> Inicio </s:a>
@@ -26,7 +26,7 @@
 						{
 					%>
 						<div id="partidosDisponibles">
-							<s:form action="inscripcionPartido.jsp">
+							<s:form action="inscripcion">
 								<table id="tablaPartidosDisponibles">
 									<tr><td>Lugar: </td><td>Patronato</td></tr>
 									<tr><td>Fecha: </td><td>10/08/2017</td></tr>
@@ -34,9 +34,9 @@
 									<tr><td>Inscriptos: </td><td>6</td></tr>
 									<tr><td>Precio: </td><td>$50</td></tr>
 								</table>
-<!-- 								<div id="botonInscribirse"> -->
-									<s:submit cssClass="itemNav" value="Inscribirse" />
-<!-- 								</div> -->
+								<div id="botonInscribirse">
+									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
+								</div>
 							</s:form>
 							<div id="titInscriptos">Inscriptos:</div>
 							<% 

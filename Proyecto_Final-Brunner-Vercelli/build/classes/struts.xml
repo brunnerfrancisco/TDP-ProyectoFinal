@@ -43,6 +43,10 @@
         	<result name="ERROR">/error.jsp</result>
         </action>
         
+        <action name="inscripcion" class="actions.NavegacionController" method="inscripcion">
+        	<result name="SUCCESS">inscripcionPartido.jsp</result>
+        </action>
+        
         <action name="Login" class="actions.LoginAction" method="login">
                 <result name="SUCCESS">/index.jsp</result>
                 <result name="ERROR">/errorLogin.jsp</result>
