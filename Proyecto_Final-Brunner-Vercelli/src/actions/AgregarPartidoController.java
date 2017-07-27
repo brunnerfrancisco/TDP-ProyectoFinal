@@ -26,10 +26,11 @@ public class AgregarPartidoController extends ActionSupport {
 		partido.setCantidadJugadores(cantidadJugadores);
 		try {
 			ColeccionPartidos partidos=new ColeccionPartidos();
-			System.out.println(partidos.toString());
+			partido.setID_partido(partidos.getPartidos().size()+1);
+//			System.out.println(partidos.toString());
 			partidos.agregarPartido(partido);
 		}catch (IOException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
 		}
 		return "SUCCESS";
 	}

@@ -38,13 +38,13 @@
         	<result>/agregarPartido.jsp</result>
         </action>
         
+        <action name="inscripcion" class="actions.NavegacionController" method="inscripcion">
+        	<result>inscripcionPartido.jsp</result>
+        </action>
+        
         <action name="registrarPartido" class="actions.AgregarPartidoController" method="agregarPartido">
         	<result name="SUCCESS">/registroCorrecto.jsp</result>
         	<result name="ERROR">/error.jsp</result>
-        </action>
-        
-        <action name="inscripcion" class="actions.NavegacionController" method="inscripcion">
-        	<result name="SUCCESS">inscripcionPartido.jsp</result>
         </action>
         
         <action name="Login" class="actions.LoginAction" method="login">

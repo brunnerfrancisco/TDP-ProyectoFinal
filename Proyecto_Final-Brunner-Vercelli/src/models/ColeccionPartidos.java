@@ -14,28 +14,26 @@ public class ColeccionPartidos {
 	public ColeccionPartidos() throws IOException
     {
 		String path = ServletActionContext.getRequest().getSession().getServletContext().getRealPath("/"+folderName);
-//		String path=ServletActionContext.getServletContext().getRealPath("WEB-INF/files");
-//		String path="C:/Users/brunn/git/TDP-ProyectoFinal/Proyecto_Final-Brunner-Vercelli/WebContent/"+folderName;
-		System.out.println(path);
+//		System.out.println(path);
 		File f= new File(path+"/"+fileName);
-//		if(!f.exists()){
-//			Writer writer=null;
-//			try 
-//			{
-//			    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
-//			} 
-//			catch (IOException ex) 
-//			{
-//				System.out.println(ex.getMessage());
-//			} 
-//			finally 
-//			{
-//				try 
-//				{
-//					writer.close();
-//				} catch (Exception ex) {System.out.println(ex.getMessage());}
-//			}
-//		}
+		if(!f.exists()){
+			Writer writer=null;
+			try 
+			{
+			    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
+			} 
+			catch (IOException ex) 
+			{
+				System.out.println(ex.getMessage());
+			} 
+			finally 
+			{
+				try 
+				{
+					writer.close();
+				} catch (Exception ex) {System.out.println(ex.getMessage());}
+			}
+		}
 		
 		FileReader fileReader=new FileReader(path+"/"+fileName);
         BufferedReader bufferedReader=new BufferedReader(fileReader);
@@ -46,11 +44,12 @@ public class ColeccionPartidos {
 	
 	private void cargar(BufferedReader archivo) throws IOException {
         String cod = archivo.readLine();
-        System.out.println(cod);
+//        System.out.println(cod);
         while (cod != null) {
             Partido partido = new Partido();
 //            System.out.println(archivo.readLine());
-            partido.setLugar(cod);//String lugar = archivo.readLine();
+            partido.setID_partido(Integer.parseInt(cod));
+            partido.setLugar(archivo.readLine());//String lugar = archivo.readLine();
             partido.setFecha(archivo.readLine());//String fecha = archivo.readLine();
             partido.setHora(archivo.readLine());//String hora = archivo.readLine();
             partido.setPrecio(Integer.parseInt(archivo.readLine()));//String precio = archivo.readLine();
@@ -90,12 +89,12 @@ public class ColeccionPartidos {
         for(Partido partido : this.partidos)
         {
 //            Partido partido=partidos.get(c);
+        	fileWriter.write(partido.getID_partido()+"\n");
             fileWriter.write(partido.getLugar()+"\n");
             fileWriter.write(partido.getFecha()+"\n");
             fileWriter.write(partido.getHora()+"\n");
             fileWriter.write(partido.getPrecio()+"\n");
             fileWriter.write(partido.getCantidadJugadores()+"\n");
-            fileWriter.write("--------------"+"\n");
 //            c++;
         }
         fileWriter.close();

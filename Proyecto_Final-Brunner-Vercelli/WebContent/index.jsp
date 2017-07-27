@@ -2,6 +2,7 @@
 <%@page import="org.apache.struts2.ServletActionContext"%>
 <%@ page import="models.ColeccionPartidos" %>
 <%@ page import="models.Partido" %>
+<%@ page import="models.Jugador" %>
 <%@ page import="java.util.LinkedList" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -35,6 +36,7 @@
 					%>
 						<div id="partidosDisponibles">
 							<s:form action="inscripcion">
+								<s:hidden value="<%partido.getID_partido(); %>"/>
 								<table id="tablaPartidosDisponibles">
 									<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
 									<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
@@ -48,10 +50,10 @@
 							</s:form>
 							<div id="titInscriptos">Inscriptos:</div>
 							<% 
-								for(int j=0; j<6; j++)
+								for(Jugador jugador : partido.getInscriptos())
 								{
 							%>
-							<div id="nombreInscriptos">Juan Perez</div>
+								<div id="nombreInscriptos"><%out.println(jugador.getNombre()); %></div>
 							<%
 								} 
 							%>
