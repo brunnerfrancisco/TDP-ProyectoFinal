@@ -1,6 +1,10 @@
 package actions;
 
+import java.io.IOException;
+
 import com.opensymphony.xwork2.ActionSupport;
+
+import models.ColeccionPartidos;
 
 public class NavegacionController extends ActionSupport {
 	private static final long serialVersionUID = 1L; // esto esta para que no aparezca warning

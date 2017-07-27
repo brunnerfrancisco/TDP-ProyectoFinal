@@ -1,3 +1,9 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@ page import="models.ColeccionPartidos" %>
+<%@ page import="models.Partido" %>
+<%@ page import="java.util.LinkedList" %>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -22,17 +28,19 @@
 				<section>
 					<div id="titPartidosDisponibles">Partidos Disponibles</div>
 					<% 
-						for(int i=0; i<3; i++)
+					response.setContentType("text/html");
+					ColeccionPartidos partidos=new ColeccionPartidos();
+						for(Partido partido : partidos.getPartidos())
 						{
 					%>
 						<div id="partidosDisponibles">
 							<s:form action="inscripcion">
 								<table id="tablaPartidosDisponibles">
-									<tr><td>Lugar: </td><td>Patronato</td></tr>
-									<tr><td>Fecha: </td><td>10/08/2017</td></tr>
-									<tr><td>Hora: </td><td>21:00</td></tr>
-									<tr><td>Inscriptos: </td><td>6</td></tr>
-									<tr><td>Precio: </td><td>$50</td></tr>
+									<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
+									<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
+									<tr><td>Hora: </td><td><%out.println(partido.getHora()); %></td></tr>
+									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
+									<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
 								</table>
 								<div id="botonInscribirse">
 									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
