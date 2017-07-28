@@ -3,12 +3,12 @@ package models;
 public class Jugador {
 	private String nombre;
 	private String apellido;
-	private int DNI;
+	private String DNI;
 	
-	public Jugador(String fname, String lname, int dni) {
-		this.nombre = fname;
-		this.apellido = lname;
-		this.DNI = dni;
+	public Jugador(String nombre, String apellido, String DNI) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.DNI = DNI;
 	}
 
 	public String getNombre() {
@@ -27,11 +27,11 @@ public class Jugador {
 		this.apellido = apellido;
 	}
 
-	public int getDNI() {
+	public String getDNI() {
 		return DNI;
 	}
 
-	public void setDNI(int dNI) {
+	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
 }

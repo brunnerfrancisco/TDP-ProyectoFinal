@@ -1,10 +1,16 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@ page import="models.ColeccionPartidos" %>
+<%@ page import="models.Partido" %>
+<%@ page import="models.Jugador" %>
+<%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <html>
 	<head>
 		<title> Proyecto Final Bunner - Vercelli</title>
-		<link rel="stylesheet" href="CSS/styles.css?1.0.1">
+		<link rel="stylesheet" href="CSS/styles.css?1.0.0">
 		<link rel="icon" type="image/png" href="CSS/mifavicon.png" />
 	</head>
 	<body>
@@ -20,8 +26,10 @@
 			<div id="separadorNavSec"></div>
 			<div id="contenedor2">
 				<section>
-					<div id="titPartidosDisponibles">Jugadores</div>
-					
+					<div id="titPartidosDisponibles" style="color=GREEN;">Inscripcion Correcta</div>
+					<s:form action="Regresar">
+						<s:submit cssClass="botonIngresar" value="Regresar"/>
+					</s:form>
 				</section>
 				<aside>
 					<s:if test='%{#session.user != null}'>

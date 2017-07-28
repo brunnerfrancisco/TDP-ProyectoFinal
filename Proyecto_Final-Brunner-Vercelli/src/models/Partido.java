@@ -8,11 +8,16 @@ public class Partido {
 	private String fecha;
 	private String hora;
 	private int cantidadJugadores;
+	private int cantidadInscriptos;
 	private int precio;
 	private LinkedList<Jugador> inscriptos;
 	
 	public Partido() {
 		this.inscriptos = new LinkedList<Jugador>();
+	}
+	
+	public void agregarJugador(Jugador jugador) {
+		this.inscriptos.add(jugador);
 	}
 	
 	public int getID_partido() {
@@ -55,6 +60,14 @@ public class Partido {
 		this.cantidadJugadores = cantidadJugadores;
 	}
 	
+	public int getCantidadInscriptos() {
+		return cantidadInscriptos;
+	}
+
+	public void setCantidadInscriptos(int cantidadInscriptos) {
+		this.cantidadInscriptos = cantidadInscriptos;
+	}
+
 	public int getPrecio() {
 		return precio;
 	}

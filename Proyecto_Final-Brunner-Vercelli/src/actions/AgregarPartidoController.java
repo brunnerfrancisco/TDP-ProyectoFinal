@@ -16,7 +16,7 @@ public class AgregarPartidoController extends ActionSupport {
 	private int cantidadJugadores;
 	private Partido partido;
 	
-	public String agregarPartido()
+	public String execute()
 	{
 		partido=new Partido();
 		partido.setLugar(lugar);
@@ -24,16 +24,23 @@ public class AgregarPartidoController extends ActionSupport {
 		partido.setHora(hora);
 		partido.setPrecio(precio);
 		partido.setCantidadJugadores(cantidadJugadores);
+		partido.setCantidadInscriptos(0);
 		try {
 			ColeccionPartidos partidos=new ColeccionPartidos();
 			partido.setID_partido(partidos.getPartidos().size()+1);
-			System.out.println(partidos.toString());
+//			System.out.println(partidos.toString());
 			partidos.agregarPartido(partido);
 		}catch (IOException e) {
 //			System.out.println(e.getMessage());
+			return "ERROR";
 		}
 		return "SUCCESS";
 	}
+	
+	public String agregarPartido(){
+		return SUCCESS;
+	}
+	
 	public String getLugar() {
 		return lugar;
 	}

@@ -24,7 +24,7 @@
 					
 				</section>
 				<aside>
-					<form action="ErrorLogin">
+					<form action="Regresar">
 						<div id="titLoguin" style="color:#FF0000"> ERROR </div>
 						<input type="submit" id="botonIngresar" value="Regresar"/>
 					</form>

@@ -3,8 +3,7 @@
 <%@ page import="models.ColeccionPartidos" %>
 <%@ page import="models.Partido" %>
 <%@ page import="models.Jugador" %>
-<%@ page import="java.util.LinkedList" %>
-
+<%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -28,6 +27,7 @@
 			<div id="contenedor2">
 				<section>
 					<div id="titPartidosDisponibles">Partidos Disponibles</div>
+					<s:set var="partidoSeleccionado" value="0" />
 					<% 
 					response.setContentType("text/html");
 					ColeccionPartidos partidos=new ColeccionPartidos();
@@ -36,12 +36,13 @@
 					%>
 						<div id="partidosDisponibles">
 							<s:form action="inscripcion">
-								<s:hidden value="<%partido.getID_partido(); %>"/>
+								<s:hidden name="ID_seleccionado" value="%{#partidoSeleccionado}"/>
 								<table id="tablaPartidosDisponibles">
 									<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
 									<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
 									<tr><td>Hora: </td><td><%out.println(partido.getHora()); %></td></tr>
-									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
+									<tr><td>Jugadores: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
+									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
 									<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
 								</table>
 								<div id="botonInscribirse">
@@ -58,11 +59,11 @@
 								} 
 							%>
 						</div>
-						
-						
+						<s:set var="partidoSeleccionado" value="%{#partidoSeleccionado+1}" />
 					<%
 						} 
 					%>
+					
 				</section>
 				<aside>
 					<s:if test='%{#session.user != null}'>

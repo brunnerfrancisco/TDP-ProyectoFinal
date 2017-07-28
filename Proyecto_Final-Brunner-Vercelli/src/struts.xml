@@ -18,31 +18,33 @@
 			</interceptor-stack>
 		</interceptors>
 		
-    	<action name="index">
-    		<result>/index.jsp</result>
-    	</action>
-        
-        <action name="index" class="actions.NavegacionController" method="index">
+        <action name="index">
         	<result>/index.jsp</result>
         </action>
         
-        <action name="equipos" class="actions.NavegacionController" method="equipos">
+        <action name="equipos">
         	<result>/equipos.jsp</result>
         </action>
         
-        <action name="jugadores" class="actions.NavegacionController" method="jugadores">
+        <action name="jugadores">
         	<result>/jugadores.jsp</result>
         </action>
         
-        <action name="agregarPartido" class="actions.NavegacionController" method="agregarPartido">
+        <action name="inscripcion" class="actions.AgregarJugadorController" method="inscripcion">
+        	<result name="SUCCESS">/inscripcionPartido.jsp</result>
+        	<result name="ERROR">/inscripcionError.jsp</result>
+        </action>
+        
+        <action name="inscripcionPartido" class="actions.AgregarJugadorController" method="execute">
+        	<result name="SUCCESS">/inscripcionCorrecto.jsp</result>
+        	<result name="ERROR">/inscripcionError.jsp</result>
+        </action>
+        
+        <action name="agregarPartido" class="actions.AgregarPartidoController" method="agregarPartido">
         	<result>/agregarPartido.jsp</result>
         </action>
         
-        <action name="inscripcion" class="actions.NavegacionController" method="inscripcion">
-        	<result>inscripcionPartido.jsp</result>
-        </action>
-        
-        <action name="registrarPartido" class="actions.AgregarPartidoController" method="agregarPartido">
+        <action name="registrarPartido" class="actions.AgregarPartidoController" method="execute">
         	<result name="SUCCESS">/registroCorrecto.jsp</result>
         	<result name="ERROR">/error.jsp</result>
         </action>
@@ -60,7 +62,7 @@
             <result>/index.jsp</result>
         </action>
         
-        <action name="ErrorLogin">
+        <action name="Regresar">
             <result>/index.jsp</result>
         </action>
         

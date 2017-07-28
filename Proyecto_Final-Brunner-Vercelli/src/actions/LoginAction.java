@@ -8,9 +8,6 @@ import org.apache.struts2.interceptor.SessionAware;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport implements SessionAware {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String password;

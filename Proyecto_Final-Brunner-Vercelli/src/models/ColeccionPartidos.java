@@ -5,11 +5,15 @@ import java.util.LinkedList;
 
 import org.apache.struts2.ServletActionContext;
 
+import com.opensymphony.xwork2.ActionContext;
+import com.opensymphony.xwork2.util.ValueStack;
+
 public class ColeccionPartidos {
 	private static final String folderName="WEB-INF/files";
 	private static final String fileName="partido.txt";
 	private LinkedList<Partido> partidos;
 	private int cantPartidos;
+//	private static int IDSeleccionado;
 	
 	public ColeccionPartidos() throws IOException
     {
@@ -44,16 +48,24 @@ public class ColeccionPartidos {
 	
 	private void cargar(BufferedReader archivo) throws IOException {
         String cod = archivo.readLine();
+        
 //        System.out.println(cod);
         while (cod != null) {
             Partido partido = new Partido();
-//            System.out.println(archivo.readLine());
             partido.setID_partido(Integer.parseInt(cod));
             partido.setLugar(archivo.readLine());//String lugar = archivo.readLine();
             partido.setFecha(archivo.readLine());//String fecha = archivo.readLine();
             partido.setHora(archivo.readLine());//String hora = archivo.readLine();
             partido.setPrecio(Integer.parseInt(archivo.readLine()));//String precio = archivo.readLine();
             partido.setCantidadJugadores(Integer.parseInt(archivo.readLine()));//String cantJugadores = archivo.readLine();
+	        partido.setCantidadInscriptos(Integer.parseInt(archivo.readLine()));
+	            for(int i = 0; i < partido.getCantidadInscriptos(); i++) {
+	            	String nombre=archivo.readLine();//System.out.println("nom"+nombre);
+	            	String apellido=archivo.readLine();//System.out.println("ape"+apellido);
+	            	String dni=archivo.readLine();//System.out.println("dni:"+dni);
+	            	partido.agregarJugador(new Jugador(nombre,apellido,dni));
+	            }
+	        
             this.partidos.add(partido);
             this.cantPartidos++;
             cod = archivo.readLine();
@@ -85,20 +97,37 @@ public class ColeccionPartidos {
 		}
 			
 		FileWriter fileWriter=new FileWriter(path+"/"+fileName);
-//        int c=0;
         for(Partido partido : this.partidos)
         {
-//            Partido partido=partidos.get(c);
         	fileWriter.write(partido.getID_partido()+"\n");
             fileWriter.write(partido.getLugar()+"\n");
             fileWriter.write(partido.getFecha()+"\n");
             fileWriter.write(partido.getHora()+"\n");
             fileWriter.write(partido.getPrecio()+"\n");
             fileWriter.write(partido.getCantidadJugadores()+"\n");
-//            c++;
+            fileWriter.write(partido.getCantidadInscriptos()+"\n");
+            
+            for(Jugador jugador : partido.getInscriptos()) {
+//            	System.out.println("Guardo los datos del jugador: "+jugador.getDNI());
+            	fileWriter.write(jugador.getNombre()+"\n");
+            	fileWriter.write(jugador.getApellido()+"\n");
+            	fileWriter.write(jugador.getDNI()+"\n");
+            }
         }
         fileWriter.close();
     }
+	
+	public void agregarJugador(Jugador jugador, int ID_partido) {
+		ValueStack stack = ActionContext.getContext().getValueStack();
+        Partido partido = (Partido) stack.peek();
+		partido.agregarJugador(jugador);
+		partido.setCantidadInscriptos(partido.getCantidadInscriptos()+1);
+		try {
+			guardar();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public LinkedList<Partido> getPartidos() {
 		return partidos;
@@ -115,5 +144,13 @@ public class ColeccionPartidos {
 	public void setCantPartidos(int cantPartidos) {
 		this.cantPartidos = cantPartidos;
 	}
+
+//	public static void setIDSeleccionado(int iD_seleccionado) {
+//		IDSeleccionado=iD_seleccionado;
+//	}
+//	
+//	public static int getIDSeleccionado() {
+//		return IDSeleccionado;
+//	}
 	
 }

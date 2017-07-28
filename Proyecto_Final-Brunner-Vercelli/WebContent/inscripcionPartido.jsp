@@ -1,3 +1,11 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@ page import="models.ColeccionPartidos" %>
+<%@ page import="models.Partido" %>
+<%@ page import="models.Jugador" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.opensymphony.xwork2.ActionContext"%>
+<%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -20,27 +28,45 @@
 			<div id="separadorNavSec"></div>
 			<div id="contenedor2">
 				<section>
+				<%
+					ColeccionPartidos partidos = new ColeccionPartidos();
+					Partido partido = (Partido) ActionContext.getContext().getValueStack().peek();
+				%>
 					<div id="titPartidosDisponibles">Incripcion:</div>
 						<div id="partidosDisponibles">
 							<div id="infoPartido">
 								<table id="tablaPartidosDisponibles">
-									<tr><td>Lugar: </td><td>Patronato</td></tr>
-									<tr><td>Fecha: </td><td>10/08/2017</td></tr>
-									<tr><td>Hora: </td><td>21:00</td></tr>
-									<tr><td>Inscriptos: </td><td>6</td></tr>
-									<tr><td>Precio: </td><td>$50</td></tr>
+									<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
+									<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
+									<tr><td>Hora: </td><td><%out.println(partido.getHora()); %></td></tr>
+									<tr><td>Jugadores: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
+									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
+									<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
 								</table>
 							</div>
 							<div id="separadorPartidoInscriptos"></div>
-							<form action="inscripcionPartido">
+							<s:form action="inscripcionPartido">
 								<table id="tablaPartidosDisponibles">
-									<tr><td>Nombre: </td><td><input name="nombre" type="text" size="20"></td></tr>
-									<tr><td>Apellido: </td><td><input name="apellido" type="text" size="20"></td></tr>
-									<tr><td>DNI: </td><td><input name="fechaNac" type="text"></td></tr>
+									<tr><td>Nombre: </td><td><s:textfield name="nombre"></s:textfield></td></tr>
+									<tr><td>Apellido: </td><td><s:textfield name="apellido"></s:textfield></td></tr>
+									<tr><td>DNI: </td><td><s:textfield name="dni"></s:textfield></td></tr>
 								</table>
-								<div id="botonInscribirse"><input type="submit" value="Inscribirse"></div>
-								<div id="titInscriptos">Inscriptos:</div>
-							</form>
+								<s:hidden name="ID_seleccionado" value="%{ID_partido}"/>
+								<s:submit cssClass="botonInscribirse" value="Inscribirse"/>
+							</s:form>
+							<div id="titInscriptos">Inscriptos:</div>
+							<table id="tablaPartidosDisponibles">
+							<% 
+								for(Jugador jugador : partido.getInscriptos())
+								{
+							%>
+								<tr><td><%out.println(jugador.getNombre()); %></td>
+								<td><%out.println(jugador.getApellido()); %></td>
+								<td><%out.println(jugador.getDNI()); %></td></tr>
+							<%
+								} 
+							%>
+							</table>
 						</div>
 				</section>
 				<aside>
