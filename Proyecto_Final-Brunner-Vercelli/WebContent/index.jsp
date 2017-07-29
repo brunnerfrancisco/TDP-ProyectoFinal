@@ -62,14 +62,14 @@
 								<td><%out.println(jugador.getApellido()); %></td>
 								<td><%out.println(jugador.getDNI()); %></td>
 									
-<%-- 									<s:if test='%{#session.user != null}'> --%>
+									<s:if test='%{#session.user != null}'>
 										<s:form action="eliminarJugador">
 										<s:set var="DNI"><%out.println(jugador.getDNI()); %></s:set>
 											<s:hidden name="DNI_seleccionado" value="%{#DNI}"/>
 											<s:hidden name="ID_partido_seleccionado" value="%{#partidoSeleccionado}"/>
 											<td><s:submit value="X" /></td>
 										</s:form>
-<%-- 									</s:if> --%>
+									</s:if>
 								
 								</tr>
 								<s:set var="jugadorSeleccionado" value="%{#jugadorSeleccionado+1}" />
