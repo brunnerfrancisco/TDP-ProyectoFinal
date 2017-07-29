@@ -50,14 +50,33 @@
 								</div>
 							</s:form>
 							<div id="titInscriptos">Inscriptos:</div>
+							
+							<table id="tablaPartidosDisponibles">
+							<s:set var="jugadorSeleccionado" value="0" />
 							<% 
 								for(Jugador jugador : partido.getInscriptos())
 								{
 							%>
-								<div id="nombreInscriptos"><%out.println(jugador.getNombre()); %></div>
+								<tr>
+								<td><%out.println(jugador.getNombre()); %></td>
+								<td><%out.println(jugador.getApellido()); %></td>
+								<td><%out.println(jugador.getDNI()); %></td>
+									
+<%-- 									<s:if test='%{#session.user != null}'> --%>
+										<s:form action="eliminarJugador">
+										<s:set var="DNI"><%out.println(jugador.getDNI()); %></s:set>
+											<s:hidden name="DNI_seleccionado" value="%{#DNI}"/>
+											<s:hidden name="ID_partido_seleccionado" value="%{#partidoSeleccionado}"/>
+											<td><s:submit value="X" /></td>
+										</s:form>
+<%-- 									</s:if> --%>
+								
+								</tr>
+								<s:set var="jugadorSeleccionado" value="%{#jugadorSeleccionado+1}" />
 							<%
 								} 
 							%>
+							</table>
 						</div>
 						<s:set var="partidoSeleccionado" value="%{#partidoSeleccionado+1}" />
 					<%

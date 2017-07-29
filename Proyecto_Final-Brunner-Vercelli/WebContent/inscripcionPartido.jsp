@@ -60,9 +60,12 @@
 								for(Jugador jugador : partido.getInscriptos())
 								{
 							%>
-								<tr><td><%out.println(jugador.getNombre()); %></td>
+								<tr>
+								<td><%out.println(jugador.getNombre()); %></td>
 								<td><%out.println(jugador.getApellido()); %></td>
-								<td><%out.println(jugador.getDNI()); %></td></tr>
+								<td><%out.println(jugador.getDNI()); %></td>
+								
+								</tr>
 							<%
 								} 
 							%>

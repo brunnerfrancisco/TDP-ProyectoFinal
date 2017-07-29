@@ -66,5 +66,9 @@
             <result>/index.jsp</result>
         </action>
         
+        <action name="eliminarJugador" class="actions.EliminarJugadorController" method="execute">
+        	<result>/index.jsp</result>
+        </action>
+        
     </package>
 </struts>

@@ -13,7 +13,6 @@ public class ColeccionPartidos {
 	private static final String fileName="partido.txt";
 	private LinkedList<Partido> partidos;
 	private int cantPartidos;
-//	private static int IDSeleccionado;
 	
 	public ColeccionPartidos() throws IOException
     {
@@ -145,12 +144,34 @@ public class ColeccionPartidos {
 		this.cantPartidos = cantPartidos;
 	}
 
-//	public static void setIDSeleccionado(int iD_seleccionado) {
-//		IDSeleccionado=iD_seleccionado;
-//	}
-//	
-//	public static int getIDSeleccionado() {
-//		return IDSeleccionado;
-//	}
+	public void eliminarJugador(int ID_partido, String DNI_jugador) {
+		Partido encontre=null;
+		for(Partido partido : this.partidos) {
+//			System.out.println(partido.getID_partido());
+//			System.out.println(ID_partido);
+			if(partido.getID_partido()==(ID_partido+1))
+			{
+				encontre=partido;
+				break;
+			}
+		}
+		if(encontre!=null)
+		{
+			for(Jugador jugador : encontre.getInscriptos()) {
+				if(jugador.getDNI().equals(DNI_jugador)) {
+					encontre.getInscriptos().remove(jugador);
+					encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
+					break;
+				}
+			}
+			try {
+				guardar();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
 	
 }
