@@ -17,7 +17,6 @@ public class ColeccionPartidos {
 	public ColeccionPartidos() throws IOException
     {
 		String path = ServletActionContext.getRequest().getSession().getServletContext().getRealPath("/"+folderName);
-//		System.out.println(path);
 		File f= new File(path+"/"+fileName);
 		if(!f.exists()){
 			Writer writer=null;
@@ -27,14 +26,16 @@ public class ColeccionPartidos {
 			} 
 			catch (IOException ex) 
 			{
-				System.out.println(ex.getMessage());
+				ex.printStackTrace();
 			} 
 			finally 
 			{
 				try 
 				{
 					writer.close();
-				} catch (Exception ex) {System.out.println(ex.getMessage());}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 		
@@ -47,21 +48,19 @@ public class ColeccionPartidos {
 	
 	private void cargar(BufferedReader archivo) throws IOException {
         String cod = archivo.readLine();
-        
-//        System.out.println(cod);
         while (cod != null) {
             Partido partido = new Partido();
             partido.setID_partido(Integer.parseInt(cod));
-            partido.setLugar(archivo.readLine());//String lugar = archivo.readLine();
-            partido.setFecha(archivo.readLine());//String fecha = archivo.readLine();
-            partido.setHora(archivo.readLine());//String hora = archivo.readLine();
-            partido.setPrecio(Integer.parseInt(archivo.readLine()));//String precio = archivo.readLine();
-            partido.setCantidadJugadores(Integer.parseInt(archivo.readLine()));//String cantJugadores = archivo.readLine();
+            partido.setLugar(archivo.readLine());
+            partido.setFecha(archivo.readLine());
+            partido.setHora(archivo.readLine());
+            partido.setPrecio(Integer.parseInt(archivo.readLine()));
+            partido.setCantidadJugadores(Integer.parseInt(archivo.readLine()));
 	        partido.setCantidadInscriptos(Integer.parseInt(archivo.readLine()));
 	            for(int i = 0; i < partido.getCantidadInscriptos(); i++) {
-	            	String nombre=archivo.readLine();//System.out.println("nom"+nombre);
-	            	String apellido=archivo.readLine();//System.out.println("ape"+apellido);
-	            	String dni=archivo.readLine();//System.out.println("dni:"+dni);
+	            	String nombre=archivo.readLine();
+	            	String apellido=archivo.readLine();
+	            	String dni=archivo.readLine();
 	            	partido.agregarJugador(new Jugador(nombre,apellido,dni));
 	            }
 	        
@@ -87,11 +86,13 @@ public class ColeccionPartidos {
 			    writer = new BufferedWriter(new OutputStreamWriter(
 			          new FileOutputStream(fileName), "utf-8"));
 			} catch (IOException ex) {
-				System.out.println(ex.getMessage());
+				ex.printStackTrace();
 			} finally {
 			   try {
 				   writer.close();
-			   } catch (Exception ex) {System.out.println(ex.getMessage());}
+			   } catch (Exception ex) {
+				   ex.printStackTrace();
+			   }
 			}
 		}
 			
@@ -107,7 +108,6 @@ public class ColeccionPartidos {
             fileWriter.write(partido.getCantidadInscriptos()+"\n");
             
             for(Jugador jugador : partido.getInscriptos()) {
-//            	System.out.println("Guardo los datos del jugador: "+jugador.getDNI());
             	fileWriter.write(jugador.getNombre()+"\n");
             	fileWriter.write(jugador.getApellido()+"\n");
             	fileWriter.write(jugador.getDNI()+"\n");
@@ -121,6 +121,45 @@ public class ColeccionPartidos {
         Partido partido = (Partido) stack.peek();
 		partido.agregarJugador(jugador);
 		partido.setCantidadInscriptos(partido.getCantidadInscriptos()+1);
+		try {
+			guardar();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void eliminarJugador(int ID_partido, String DNI_jugador) {
+		Partido encontre=null;
+		for(Partido partido : this.partidos) {
+			if(partido.getID_partido()==(ID_partido+1)) {
+				encontre=partido;
+				break;
+			}
+		}
+		if(encontre!=null)
+		{
+			for(Jugador jugador : encontre.getInscriptos()) {
+				if(jugador.getDNI().equals(DNI_jugador)) {
+					encontre.getInscriptos().remove(jugador);
+					encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
+					break;
+				}
+			}
+			try {
+				guardar();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void eliminarPartido(int ID_partido) {
+		for(Partido partido : this.partidos) {
+			if(partido.getID_partido()==(ID_partido)) {
+				partidos.remove(partido);
+				break;
+			}
+		}
 		try {
 			guardar();
 		} catch (IOException e) {
@@ -144,34 +183,6 @@ public class ColeccionPartidos {
 		this.cantPartidos = cantPartidos;
 	}
 
-	public void eliminarJugador(int ID_partido, String DNI_jugador) {
-		Partido encontre=null;
-		for(Partido partido : this.partidos) {
-//			System.out.println(partido.getID_partido());
-//			System.out.println(ID_partido);
-			if(partido.getID_partido()==(ID_partido+1))
-			{
-				encontre=partido;
-				break;
-			}
-		}
-		if(encontre!=null)
-		{
-			for(Jugador jugador : encontre.getInscriptos()) {
-				if(jugador.getDNI().equals(DNI_jugador)) {
-					encontre.getInscriptos().remove(jugador);
-					encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
-					break;
-				}
-			}
-			try {
-				guardar();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-	}
+	
 	
 }

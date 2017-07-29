@@ -26,19 +26,18 @@
 				<aside>
 					<s:if test='%{#session.user != null}'>
 						<div id="titLoguin">Bienvenido <s:property value="%{#session['user']}"/></div>
-						<form action="LogOut" method="post">
-							<input type="submit"  id="botonIngresar" value="Salir"/>
-						</form>
-						
+						<s:form action="LogOut" method="post">
+							<s:submit  cssClass="botonIngresar" value="Salir"/>
+						</s:form>
 						<s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a>
 					</s:if>
 					<s:else>
-						<form action="Login" method="post">
+						<s:form action="Login" method="post">
 							<div id="titLoguin">Logueo</div>
-							<div id="labelUser">Usuario: </div><input type="text" size="6" name="userName" id="inputUser"/>
-							<div id="labelPass">Password: </div><input type="password" size="6" name="password" id="inputPass"/>
-							<input type="submit"  id="botonIngresar" value="Ingresar"/>
-						</form>
+							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser"/>
+							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass"/>
+							<s:submit  cssClass="botonIngresar" value="Ingresar"/>
+						</s:form>
 					</s:else>
 				</aside>
 				<div id="separadorNavSec" style="float:left"></div>

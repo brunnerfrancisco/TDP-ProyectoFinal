@@ -24,7 +24,6 @@ public class AgregarJugadorController extends ActionSupport {
 			jugador = new Jugador(nombre,apellido,dni);
 			ColeccionPartidos partidos = new ColeccionPartidos();
 			ValueStack stack = ActionContext.getContext().getValueStack();
-			System.out.println(ID_seleccionado);
 			stack.push(partidos.getPartidos().get(Integer.parseInt(ID_seleccionado)-1));
 			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado)-1);
 		}catch(IOException e) {
@@ -40,7 +39,6 @@ public class AgregarJugadorController extends ActionSupport {
 			ColeccionPartidos partidos = new ColeccionPartidos();
 			stack.push(partidos.getPartidos().get(Integer.parseInt(ID_seleccionado)));
 		}catch (IOException ex) {
-			System.out.println(ex.getMessage());
 			return "ERROR";
 		}
 		return "SUCCESS";

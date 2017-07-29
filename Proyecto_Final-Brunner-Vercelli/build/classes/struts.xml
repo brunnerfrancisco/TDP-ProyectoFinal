@@ -70,5 +70,9 @@
         	<result>/index.jsp</result>
         </action>
         
+        <action name="eliminarPartido" class="actions.EliminarPartidoController" method="execute">
+        	<result name="SUCCESS">/index.jsp</result>
+        </action>
+        
     </package>
 </struts>

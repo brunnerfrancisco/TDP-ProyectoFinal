@@ -1,6 +1,5 @@
 package actions;
 
-//import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
@@ -31,7 +30,7 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	public String getUserName() {
 		return userName;
 	}
-
+	
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}

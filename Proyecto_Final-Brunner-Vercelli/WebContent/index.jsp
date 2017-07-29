@@ -10,7 +10,7 @@
 <html>
 	<head>
 		<title> Proyecto Final Bunner - Vercelli</title>
-		<link rel="stylesheet" href="CSS/styles.css?1.0.0">
+		<link rel="stylesheet" href="CSS/styles.css?1.0.1">
 		<link rel="icon" type="image/png" href="CSS/mifavicon.png" />
 	</head>
 	<body>
@@ -45,10 +45,17 @@
 									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
 									<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
 								</table>
-								<div id="botonInscribirse">
+								<div class="botonInscribirse">
 									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
 								</div>
 							</s:form>
+								<s:if test='%{#session.user != null}'>
+									<s:form action="eliminarPartido">
+									<s:set var="ID_partido"><%out.println(partido.getID_partido()); %></s:set>
+										<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido}"/>
+										<td><s:submit value="X" /></td>
+									</s:form>
+								</s:if>
 							<div id="titInscriptos">Inscriptos:</div>
 							
 							<table id="tablaPartidosDisponibles">
@@ -87,19 +94,18 @@
 				<aside>
 					<s:if test='%{#session.user != null}'>
 						<div id="titLoguin">Bienvenido <s:property value="%{#session['user']}"/></div>
-						<form action="LogOut" method="post">
-							<input type="submit"  id="botonIngresar" value="Salir"/>
-						</form>
-						
+						<s:form action="LogOut" method="post">
+							<s:submit  cssClass="botonIngresar" value="Salir"/>
+						</s:form>
 						<s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a>
 					</s:if>
 					<s:else>
-						<form action="Login" method="post">
+						<s:form action="Login" method="post">
 							<div id="titLoguin">Logueo</div>
-							<div id="labelUser">Usuario: </div><input type="text" size="6" name="userName" id="inputUser"/>
-							<div id="labelPass">Password: </div><input type="password" size="6" name="password" id="inputPass"/>
-							<input type="submit"  id="botonIngresar" value="Ingresar"/>
-						</form>
+							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser"/>
+							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass"/>
+							<s:submit  cssClass="botonIngresar" value="Ingresar"/>
+						</s:form>
 					</s:else>
 				</aside>
 				<div id="separadorNavSec" style="float:left"></div>

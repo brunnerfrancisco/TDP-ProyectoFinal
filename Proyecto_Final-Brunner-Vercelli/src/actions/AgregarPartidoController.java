@@ -8,7 +8,7 @@ import models.ColeccionPartidos;
 import models.Partido;
 
 public class AgregarPartidoController extends ActionSupport {
-	private static final long serialVersionUID = 1L; // esto esta para que no aparezca warning
+	private static final long serialVersionUID = 1L;
 	private String lugar;
 	private String fecha;
 	private String hora;
@@ -28,10 +28,8 @@ public class AgregarPartidoController extends ActionSupport {
 		try {
 			ColeccionPartidos partidos=new ColeccionPartidos();
 			partido.setID_partido(partidos.getPartidos().size()+1);
-//			System.out.println(partidos.toString());
 			partidos.agregarPartido(partido);
 		}catch (IOException e) {
-//			System.out.println(e.getMessage());
 			return "ERROR";
 		}
 		return "SUCCESS";

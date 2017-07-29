@@ -12,8 +12,6 @@ public class EliminarJugadorController extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 
 	public String execute() {
-//	System.out.println(DNI_seleccionado);
-//		System.out.println(ID_partido_seleccionado);
 		try {
 			ColeccionPartidos partidos = new ColeccionPartidos();
 			partidos.eliminarJugador(ID_partido_seleccionado, DNI_seleccionado);

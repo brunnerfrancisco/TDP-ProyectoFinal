@@ -195,7 +195,7 @@ aside{
 	margin-bottom:3px;
 }
 
-#inputUser{
+.inputUser{
 	width:100px;
 	float:left;
 	text-align:center;
@@ -212,7 +212,7 @@ aside{
 	margin-bottom:3px;
 }
 
-#inputPass{
+.inputPass{
 	width:100px;
 	float:left;
 	text-align:center;
