@@ -1,3 +1,9 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="org.apache.struts2.ServletActionContext"%>
+<%@ page import="models.ColeccionPartidos" %>
+<%@ page import="models.Partido" %>
+<%@ page import="models.Jugador" %>
+<%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -22,6 +28,27 @@
 				<section>
 					<div id="titPartidosDisponibles">Jugadores</div>
 					
+					<div id="partidosDisponibles">
+						<table id="tablaPartidosDisponibles">
+						<% 
+						response.setContentType("text/html");
+						ColeccionPartidos partidos=new ColeccionPartidos();
+						for(Partido partido : partidos.getPartidos())
+						{
+							for(Jugador jugador : partido.getInscriptos())
+							{
+						%>
+							<tr>
+							<td><%out.println(jugador.getNombre()); %></td>
+							<td><%out.println(jugador.getApellido()); %></td>
+							<td><%out.println(jugador.getDNI()); %></td>
+							</tr>
+						<%
+							} 
+						} 
+						%>
+						</table>
+					</div>
 				</section>
 				<aside>
 					<s:if test='%{#session.user != null}'>

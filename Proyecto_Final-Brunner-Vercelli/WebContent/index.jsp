@@ -27,7 +27,6 @@
 			<div id="contenedor2">
 				<section>
 					<div id="titPartidosDisponibles">Partidos Disponibles</div>
-					<s:set var="partidoSeleccionado" value="0" />
 					<% 
 					response.setContentType("text/html");
 					ColeccionPartidos partidos=new ColeccionPartidos();
@@ -35,31 +34,38 @@
 						{
 					%>
 						<div id="partidosDisponibles">
-							<s:form action="inscripcion">
-								<s:hidden name="ID_seleccionado" value="%{#partidoSeleccionado}"/>
-								<table id="tablaPartidosDisponibles">
-									<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
-									<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
-									<tr><td>Hora: </td><td><%out.println(partido.getHora()); %></td></tr>
-									<tr><td>Jugadores: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
-									<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
-									<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
-								</table>
-								<div class="botonInscribirse">
-									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
-								</div>
-							</s:form>
-								<s:if test='%{#session.user != null}'>
-									<s:form action="eliminarPartido">
-									<s:set var="ID_partido"><%out.println(partido.getID_partido()); %></s:set>
-										<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido}"/>
-										<td><s:submit value="X" /></td>
-									</s:form>
-								</s:if>
+							<table id="tablaPartidosDisponibles">
+								<tr><td>Lugar: </td><td><%out.println(partido.getLugar()); %></td></tr>
+								<tr><td>Fecha: </td><td><%out.println(partido.getFecha()); %></td></tr>
+								<tr><td>Hora: </td><td><%out.println(partido.getHora()); %></td></tr>
+								<tr><td>Jugadores: </td><td><%out.println(partido.getCantidadJugadores()); %></td></tr>
+								<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
+								<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
+							</table>
+							<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
+							<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
+							<s:if test="%{#cantidadInscriptos < #cantidadJugadores}">
+								<s:form action="inscripcion">
+									<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
+									<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
+									<div class="botonInscribirse">
+										<s:submit cssClass="bntInscribirse" value="Inscribirse" />
+									</div>
+								</s:form>
+							</s:if>
+							<s:else>
+								<div id="titPartidosDisponibles">Partido Completo</div>
+							</s:else>
+							<s:if test='%{#session.user != null}'>
+								<s:form action="eliminarPartido">
+									<s:set var="ID_partido1"><%out.println(partido.getID_partido()); %></s:set>
+									<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido1}"/>
+									<td><s:submit value="X" /></td>
+								</s:form>
+							</s:if>
 							<div id="titInscriptos">Inscriptos:</div>
 							
 							<table id="tablaPartidosDisponibles">
-							<s:set var="jugadorSeleccionado" value="0" />
 							<% 
 								for(Jugador jugador : partido.getInscriptos())
 								{
@@ -71,21 +77,20 @@
 									
 									<s:if test='%{#session.user != null}'>
 										<s:form action="eliminarJugador">
-										<s:set var="DNI"><%out.println(jugador.getDNI()); %></s:set>
+											<s:set var="DNI"><%out.println(jugador.getDNI()); %></s:set>
+											<s:set var="ID_partido2"><%out.println(partido.getID_partido()); %></s:set>
 											<s:hidden name="DNI_seleccionado" value="%{#DNI}"/>
-											<s:hidden name="ID_partido_seleccionado" value="%{#partidoSeleccionado}"/>
+											<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido2}"/>
 											<td><s:submit value="X" /></td>
 										</s:form>
 									</s:if>
 								
 								</tr>
-								<s:set var="jugadorSeleccionado" value="%{#jugadorSeleccionado+1}" />
 							<%
 								} 
 							%>
 							</table>
 						</div>
-						<s:set var="partidoSeleccionado" value="%{#partidoSeleccionado+1}" />
 					<%
 						} 
 					%>
@@ -94,16 +99,23 @@
 				<aside>
 					<s:if test='%{#session.user != null}'>
 						<div id="titLoguin">Bienvenido <s:property value="%{#session['user']}"/></div>
+						<s:fielderror />
 						<s:form action="LogOut" method="post">
+							<s:hidden name="userName" value="admin"/>
+							<s:hidden name="password" value="admin"/>
 							<s:submit  cssClass="botonIngresar" value="Salir"/>
 						</s:form>
 						<s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a>
 					</s:if>
 					<s:else>
+						<s:fielderror />
+						<s:if test="hasActionErrors()">
+							<s:actionerror/>
+						</s:if>
 						<s:form action="Login" method="post">
 							<div id="titLoguin">Logueo</div>
-							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser"/>
-							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass"/>
+							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser" value=""/>
+							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass" value=""/>
 							<s:submit  cssClass="botonIngresar" value="Ingresar"/>
 						</s:form>
 					</s:else>

@@ -3,6 +3,7 @@ package models;
 import java.util.*;
 
 public class Partido {
+
 	private int ID_partido;
 	private String lugar;
 	private String fecha;
@@ -11,11 +12,21 @@ public class Partido {
 	private int cantidadInscriptos;
 	private int precio;
 	private LinkedList<Jugador> inscriptos;
-	
+
 	public Partido() {
 		this.inscriptos = new LinkedList<Jugador>();
 	}
-	
+
+	public Partido(String lugar, String fecha, String hora, int cantidadJugadores, int cantidadInscriptos, int precio) {
+		this.lugar = lugar;
+		this.fecha = fecha;
+		this.hora = hora;
+		this.cantidadJugadores = cantidadJugadores;
+		this.cantidadInscriptos = cantidadInscriptos;
+		this.precio = precio;
+		this.inscriptos = new LinkedList<Jugador>();
+	}
+
 	public void agregarJugador(Jugador jugador) {
 		this.inscriptos.add(jugador);
 	}

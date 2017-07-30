@@ -8,6 +8,7 @@ import com.opensymphony.xwork2.util.ValueStack;
 
 import models.ColeccionPartidos;
 import models.Jugador;
+import models.Partido;
 
 public class AgregarJugadorController extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -19,25 +20,53 @@ public class AgregarJugadorController extends ActionSupport {
 	private String dni;
 	private Jugador jugador;
 	
+	/**
+	 * execute(): String | 
+	 * Recupera el partido seleccionado, lo coloca en el tope de la pila y agrega el nuevo jugador a la coleccion
+	 * */
 	public String execute() {
 		try {
 			jugador = new Jugador(nombre,apellido,dni);
 			ColeccionPartidos partidos = new ColeccionPartidos();
 			ValueStack stack = ActionContext.getContext().getValueStack();
-			stack.push(partidos.getPartidos().get(Integer.parseInt(ID_seleccionado)-1));
-			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado)-1);
+			Partido aInscribir=null;
+			for(Partido partido : partidos.getPartidos()) {
+				if(partido.getID_partido()==Integer.parseInt(ID_seleccionado)) {
+					aInscribir=partido;
+				}
+			}
+			if(aInscribir!=null) {
+				stack.push(aInscribir);
+			}else {
+				return "ERROR";
+			}
+			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado));
 		}catch(IOException e) {
 			return "ERROR";
 		}
 		return "SUCCESS";
 	}
 
+	/**
+	 * incripcion(): String
+	 * Recupera el partido seleccionado y lo coloca en el tope de la pila
+	 * */
 	public String inscripcion()
 	{
 		try {
 			ValueStack stack = ActionContext.getContext().getValueStack();
 			ColeccionPartidos partidos = new ColeccionPartidos();
-			stack.push(partidos.getPartidos().get(Integer.parseInt(ID_seleccionado)));
+			Partido aInscribir=null;
+			for(Partido partido : partidos.getPartidos()) {
+				if(partido.getID_partido()==Integer.parseInt(ID_seleccionado)) {
+					aInscribir=partido;
+				}
+			}
+			if(aInscribir!=null) {
+				stack.push(aInscribir);
+			}else {
+				return "ERROR";
+			}
 		}catch (IOException ex) {
 			return "ERROR";
 		}

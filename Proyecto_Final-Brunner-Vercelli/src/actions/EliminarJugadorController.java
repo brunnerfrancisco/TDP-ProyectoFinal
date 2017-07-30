@@ -7,14 +7,17 @@ import com.opensymphony.xwork2.ActionSupport;
 import models.ColeccionPartidos;
 
 public class EliminarJugadorController extends ActionSupport{
-	private int ID_partido_seleccionado;
+	private String ID_partido_seleccionado;
 	private String DNI_seleccionado;
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Elimina el jugador de la coleccion
+	 * */
 	public String execute() {
 		try {
 			ColeccionPartidos partidos = new ColeccionPartidos();
-			partidos.eliminarJugador(ID_partido_seleccionado, DNI_seleccionado);
+			partidos.eliminarJugador(Integer.parseInt(ID_partido_seleccionado), DNI_seleccionado);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -22,11 +25,11 @@ public class EliminarJugadorController extends ActionSupport{
 	}
 
 
-	public int getID_partido_seleccionado() {
+	public String getID_partido_seleccionado() {
 		return ID_partido_seleccionado;
 	}
 
-	public void setID_partido_seleccionado(int iD_partido_seleccionado) {
+	public void setID_partido_seleccionado(String iD_partido_seleccionado) {
 		ID_partido_seleccionado = iD_partido_seleccionado;
 	}
 

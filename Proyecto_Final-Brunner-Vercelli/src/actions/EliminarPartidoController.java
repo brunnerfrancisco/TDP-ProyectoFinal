@@ -10,6 +10,9 @@ public class EliminarPartidoController extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	private String ID_partido_seleccionado;
 
+	/**
+	 * Elimina el partido de la coleccion
+	 * */
 	public String execute() {
 		try {
 			ColeccionPartidos partidos = new ColeccionPartidos();
@@ -17,7 +20,7 @@ public class EliminarPartidoController extends ActionSupport{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "SUCCESS";
+		return SUCCESS;
 	}
 
 	public String getID_partido_seleccionado() {

@@ -13,25 +13,24 @@ public class ColeccionPartidos {
 	private static final String fileName="partido.txt";
 	private LinkedList<Partido> partidos;
 	private int cantPartidos;
-	
+
+	/**
+	 * ColeccionPartidos()
+	 * Constructor: Abre el achivo en modo lectura donde estan almacenados los datos de los partidos y jugadores
+	 * 		y prepara las estructuras para cargar los datos del archivo
+	 * */
 	public ColeccionPartidos() throws IOException
     {
 		String path = ServletActionContext.getRequest().getSession().getServletContext().getRealPath("/"+folderName);
 		File f= new File(path+"/"+fileName);
-		if(!f.exists()){
+		if(!f.exists()) {
 			Writer writer=null;
-			try 
-			{
+			try {
 			    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
-			} 
-			catch (IOException ex) 
-			{
+			} catch (IOException ex) {
 				ex.printStackTrace();
-			} 
-			finally 
-			{
-				try 
-				{
+			} finally {
+				try {
 					writer.close();
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -45,7 +44,11 @@ public class ColeccionPartidos {
         this.partidos=new LinkedList<Partido>();
         this.cargar(bufferedReader);
     }
-	
+
+	/**
+	 * cargar(BufferdReader archivo): void
+	 * Carga los datos de archivo y los inserta dentro de las estructuras
+	 * */
 	private void cargar(BufferedReader archivo) throws IOException {
         String cod = archivo.readLine();
         while (cod != null) {
@@ -69,37 +72,34 @@ public class ColeccionPartidos {
             cod = archivo.readLine();
         }
     }
-	
-	public void agregarPartido(Partido p) throws IOException{
-        this.partidos.add(p);
-        this.cantPartidos++;
-        this.guardar();
-    }
-	
+	/**
+	 * guardar(): void
+	 * Abre el achivo en modo escritura donde estan almacenados los datos de los partidos y jugadores
+	 * 		y guarda los archivos cargados en las estructuras de la coleccion
+	 * */
 	private void guardar() throws IOException
     {
     	String path=ServletActionContext.getServletContext().getRealPath(folderName);
 		File f= new File(path);
-		if(!f.exists()){
+		if(!f.exists()) {
 			Writer writer=null;
 			try {
-			    writer = new BufferedWriter(new OutputStreamWriter(
-			          new FileOutputStream(fileName), "utf-8"));
+				writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileName ), "utf-8" ) );
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} finally {
-			   try {
-				   writer.close();
-			   } catch (Exception ex) {
-				   ex.printStackTrace();
-			   }
+				try {
+					writer.close();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
-			
 		FileWriter fileWriter=new FileWriter(path+"/"+fileName);
-        for(Partido partido : this.partidos)
+		int i=0;
+        for( Partido partido : this.partidos )
         {
-        	fileWriter.write(partido.getID_partido()+"\n");
+        	fileWriter.write(i+"\n");
             fileWriter.write(partido.getLugar()+"\n");
             fileWriter.write(partido.getFecha()+"\n");
             fileWriter.write(partido.getHora()+"\n");
@@ -112,10 +112,48 @@ public class ColeccionPartidos {
             	fileWriter.write(jugador.getApellido()+"\n");
             	fileWriter.write(jugador.getDNI()+"\n");
             }
+            i++;
         }
         fileWriter.close();
     }
-	
+
+	/**
+	 * agregarPartido(Partido partido)
+	 * @param partido: partido a ser agregado
+	 * Agrega el partido a la lista de partidos y lo guarda en el archivo
+	 * */
+	public void agregarPartido(Partido partido) throws IOException{
+        this.partidos.add(partido);
+        this.cantPartidos++;
+        this.guardar();
+    }
+
+	/**
+	 * eliminarPartido(int ID_partido)
+	 * @param ID_partido: ID del partido a ser eliminado
+	 * Elimina el partido a la lista de partidos y guarda los datos en el archivo
+	 * */
+	public void eliminarPartido(int ID_partido) {
+		for(Partido partido : this.partidos) {
+			if(partido.getID_partido()==(ID_partido)) {
+				partidos.remove(partido);
+				this.cantPartidos--;
+				break;
+			}
+		}
+		try {
+			guardar();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * agregarJugador(Jugador jugador, int ID_partido)
+	 * @param jugador: jugador a ser agregado
+	 * @param ID_partido: ID del partido donde va a ser agregado el jugador
+	 * Agrega el jugador a la lista de jugadores del partido ID_partido y lo guarda en el archivo
+	 * */
 	public void agregarJugador(Jugador jugador, int ID_partido) {
 		ValueStack stack = ActionContext.getContext().getValueStack();
         Partido partido = (Partido) stack.peek();
@@ -127,17 +165,22 @@ public class ColeccionPartidos {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * eliminarJugador(int ID_partido, String DNI_jugador)
+	 * @param ID_partido: ID del partido donde se encuentra el jugador a ser eliminado
+	 * @param DNI_jugador: DNI del jugador a ser eliminado
+	 * Elimina el jugador de la lista de jugadores del partido ID_partido y guarda los datos en el archivo
+	 * */
 	public void eliminarJugador(int ID_partido, String DNI_jugador) {
 		Partido encontre=null;
 		for(Partido partido : this.partidos) {
-			if(partido.getID_partido()==(ID_partido+1)) {
+			if(partido.getID_partido()==(ID_partido)) {
 				encontre=partido;
 				break;
 			}
 		}
-		if(encontre!=null)
-		{
+		if(encontre!=null) {
 			for(Jugador jugador : encontre.getInscriptos()) {
 				if(jugador.getDNI().equals(DNI_jugador)) {
 					encontre.getInscriptos().remove(jugador);
@@ -150,20 +193,6 @@ public class ColeccionPartidos {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-	}
-
-	public void eliminarPartido(int ID_partido) {
-		for(Partido partido : this.partidos) {
-			if(partido.getID_partido()==(ID_partido)) {
-				partidos.remove(partido);
-				break;
-			}
-		}
-		try {
-			guardar();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -183,6 +212,4 @@ public class ColeccionPartidos {
 		this.cantPartidos = cantPartidos;
 	}
 
-	
-	
 }
