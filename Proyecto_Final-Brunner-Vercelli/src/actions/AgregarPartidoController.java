@@ -14,6 +14,8 @@ public class AgregarPartidoController extends ActionSupport {
 	private String hora;
 	private int precio;
 	private int cantidadJugadores;
+	private String nombreEquipo1;
+	private String nombreEquipo2;
 	private Partido partido;
 
 	/**
@@ -21,7 +23,7 @@ public class AgregarPartidoController extends ActionSupport {
 	 * */
 	public String execute()
 	{
-		partido=new Partido(lugar,fecha, hora, cantidadJugadores, 0, precio);
+		partido=new Partido(lugar,fecha, hora, cantidadJugadores, 0, precio, nombreEquipo1, nombreEquipo2);
 		try {
 			ColeccionPartidos partidos=new ColeccionPartidos();
 			partidos.agregarPartido(partido);
@@ -69,6 +71,22 @@ public class AgregarPartidoController extends ActionSupport {
 	
 	public void setCantidadJugadores(int cantidadJugadores) {
 		this.cantidadJugadores = cantidadJugadores;
+	}
+
+	public String getNombreEquipo1() {
+		return nombreEquipo1;
+	}
+
+	public String getNombreEquipo2() {
+		return nombreEquipo2;
+	}
+
+	public void setNombreEquipo1(String nombreEquipo1) {
+		this.nombreEquipo1 = nombreEquipo1;
+	}
+
+	public void setNombreEquipo2(String nombreEquipo2) {
+		this.nombreEquipo2 = nombreEquipo2;
 	}
 	
 }

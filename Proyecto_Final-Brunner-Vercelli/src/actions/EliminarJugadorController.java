@@ -8,6 +8,7 @@ import models.ColeccionPartidos;
 
 public class EliminarJugadorController extends ActionSupport{
 	private String ID_partido_seleccionado;
+	private String equipo_seleccionado;
 	private String DNI_seleccionado;
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +18,8 @@ public class EliminarJugadorController extends ActionSupport{
 	public String execute() {
 		try {
 			ColeccionPartidos partidos = new ColeccionPartidos();
-			partidos.eliminarJugador(Integer.parseInt(ID_partido_seleccionado), DNI_seleccionado);
+			partidos.eliminarJugador(Integer.parseInt(ID_partido_seleccionado), equipo_seleccionado, DNI_seleccionado);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,6 +41,16 @@ public class EliminarJugadorController extends ActionSupport{
 
 	public void setDNI_seleccionado(String dNI_seleccionado) {
 		DNI_seleccionado = dNI_seleccionado;
+	}
+
+
+	public String getEquipo_seleccionado() {
+		return equipo_seleccionado;
+	}
+
+
+	public void setEquipo_seleccionado(String equipo_seleccionado) {
+		this.equipo_seleccionado = equipo_seleccionado;
 	}
 	
 	

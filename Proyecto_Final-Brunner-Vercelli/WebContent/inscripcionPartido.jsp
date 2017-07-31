@@ -3,6 +3,7 @@
 <%@ page import="models.ColeccionPartidos" %>
 <%@ page import="models.Partido" %>
 <%@ page import="models.Jugador" %>
+<%@ page import="models.Equipo" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.opensymphony.xwork2.ActionContext"%>
 <%@ page import="com.opensymphony.xwork2.util.ValueStack" %>
@@ -51,6 +52,7 @@
 									<tr><td>Nombre: </td><td><s:textfield name="nombre"></s:textfield></td></tr>
 									<tr><td>Apellido: </td><td><s:textfield name="apellido"></s:textfield></td></tr>
 									<tr><td>DNI: </td><td><s:textfield name="dni"></s:textfield></td></tr>
+									<tr><td>Equipo: </td><td><s:textfield name="equipo_seleccionado"></s:textfield></td></tr>
 								</table>
 								<s:hidden name="ID_seleccionado" value="%{ID_partido}"/>
 								<s:submit cssClass="botonInscribirse" value="Inscribirse"/>
@@ -58,17 +60,26 @@
 							<div id="titInscriptos">Inscriptos:</div>
 							<table id="tablaPartidosDisponibles">
 							<% 
-								for(Jugador jugador : partido.getInscriptos())
+								for(Equipo equipo : partido.getEquipos())
 								{
+							%>
+								<tr>
+								<td>Equipo: <%out.println(equipo.getNombre()); %></td>
+								<td>Jugadores: <%out.println(equipo.getCantidadJugadores()); %></td>
+								<td>Inscriptos: <%out.println(equipo.getCantidadInscriptos()); %></td>
+								</tr>
+							<%
+									for(Jugador jugador : equipo.getJugadores())
+									{
 							%>
 								<tr>
 								<td><%out.println(jugador.getNombre()); %></td>
 								<td><%out.println(jugador.getApellido()); %></td>
 								<td><%out.println(jugador.getDNI()); %></td>
-								
 								</tr>
 							<%
-								} 
+									} 
+								}
 							%>
 							</table>
 						</div>

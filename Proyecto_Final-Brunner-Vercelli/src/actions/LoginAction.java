@@ -1,6 +1,5 @@
 package actions;
 
-import java.lang.annotation.Retention;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;

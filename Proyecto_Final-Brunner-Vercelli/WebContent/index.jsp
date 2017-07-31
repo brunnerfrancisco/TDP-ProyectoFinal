@@ -3,6 +3,7 @@
 <%@ page import="models.ColeccionPartidos" %>
 <%@ page import="models.Partido" %>
 <%@ page import="models.Jugador" %>
+<%@ page import="models.Equipo" %>
 <%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -44,7 +45,10 @@
 							</table>
 							<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
 							<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
-							<s:if test="%{#cantidadInscriptos < #cantidadJugadores}">
+							<s:property value="%{#cantidadJugadores}"/>
+							<s:property value="%{#cantidadInscriptos}"/>
+							<s:property value="%{#cantidadInscriptos < #cantidadJugadores}"/>
+							<s:if test="%{#cantidadInscriptos  #cantidadJugadores}">
 								<s:form action="inscripcion">
 									<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
 									<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
@@ -67,8 +71,17 @@
 							
 							<table id="tablaPartidosDisponibles">
 							<% 
-								for(Jugador jugador : partido.getInscriptos())
+								for(Equipo equipo : partido.getEquipos())
 								{
+							%>
+								<tr>
+								<td>Equipo: <%out.println(equipo.getNombre()); %></td>
+								<td>Jugadores: <%out.println(equipo.getCantidadJugadores()); %></td>
+								<td>Inscriptos: <%out.println(equipo.getCantidadInscriptos()); %></td>
+								</tr>
+							<%
+									for(Jugador jugador : equipo.getJugadores())
+									{
 							%>
 								<tr>
 								<td><%out.println(jugador.getNombre()); %></td>
@@ -79,15 +92,18 @@
 										<s:form action="eliminarJugador">
 											<s:set var="DNI"><%out.println(jugador.getDNI()); %></s:set>
 											<s:set var="ID_partido2"><%out.println(partido.getID_partido()); %></s:set>
+											<s:set var="equipoSeleccionado"><%out.println(equipo.getNombre()); %></s:set>
 											<s:hidden name="DNI_seleccionado" value="%{#DNI}"/>
 											<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido2}"/>
+											<s:hidden name="equipo_seleccionado" value="%{#equipoSeleccionado}"/>
 											<td><s:submit value="X" /></td>
 										</s:form>
 									</s:if>
 								
 								</tr>
 							<%
-								} 
+									} 
+								}
 							%>
 							</table>
 						</div>

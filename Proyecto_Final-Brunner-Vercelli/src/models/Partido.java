@@ -1,7 +1,5 @@
 package models;
 
-import java.util.*;
-
 public class Partido {
 
 	private int ID_partido;
@@ -11,24 +9,34 @@ public class Partido {
 	private int cantidadJugadores;
 	private int cantidadInscriptos;
 	private int precio;
-	private LinkedList<Jugador> inscriptos;
+	private Equipo[] equipos;
 
 	public Partido() {
-		this.inscriptos = new LinkedList<Jugador>();
+		this.equipos = new Equipo[2];
+		this.equipos[0] = new Equipo();
+		this.equipos[1] = new Equipo();
 	}
 
-	public Partido(String lugar, String fecha, String hora, int cantidadJugadores, int cantidadInscriptos, int precio) {
+	public Partido(String lugar, String fecha, String hora, int cantidadJugadores, int cantidadInscriptos, int precio, String nombreEquipoA, String nombreEquipoB) {
 		this.lugar = lugar;
 		this.fecha = fecha;
 		this.hora = hora;
 		this.cantidadJugadores = cantidadJugadores;
 		this.cantidadInscriptos = cantidadInscriptos;
 		this.precio = precio;
-		this.inscriptos = new LinkedList<Jugador>();
+		this.equipos = new Equipo[2];
+		this.equipos[0] = new Equipo(nombreEquipoA,cantidadJugadores/2,0);
+		this.equipos[1] = new Equipo(nombreEquipoB,cantidadJugadores/2,0);
 	}
 
-	public void agregarJugador(Jugador jugador) {
-		this.inscriptos.add(jugador);
+	public void agregarJugador(Jugador jugador, String nombreEquipo) {
+		if(this.equipos[0].getNombre().equals(nombreEquipo)) {
+			this.equipos[0].agregarJugador(jugador);
+		}
+		else
+			if(this.equipos[1].getNombre().equals(nombreEquipo)) {
+				this.equipos[1].agregarJugador(jugador);
+			}
 	}
 	
 	public int getID_partido() {
@@ -86,13 +94,21 @@ public class Partido {
 	public void setPrecio(int precio) {
 		this.precio = precio;
 	}
-	
-	public LinkedList<Jugador> getInscriptos() {
-		return inscriptos;
+
+	public Equipo[] getEquipos() {
+		return equipos;
+	}
+
+	public void setEquipos(Equipo[] equipos) {
+		this.equipos = equipos;
 	}
 	
-	public void setInscriptos(LinkedList<Jugador> inscriptos) {
-		this.inscriptos = inscriptos;
+	public void setEquipo(Equipo equipo, int i) {
+		this.equipos[i]=equipo;
+	}
+	
+	public Equipo getEquipo(int i) {
+		return this.equipos[i];
 	}
 	
 }

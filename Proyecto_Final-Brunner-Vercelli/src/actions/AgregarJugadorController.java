@@ -14,6 +14,7 @@ public class AgregarJugadorController extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
 	private String ID_seleccionado;
+	private String equipo_seleccionado;
 	
 	private String nombre;
 	private String apellido;
@@ -40,7 +41,7 @@ public class AgregarJugadorController extends ActionSupport {
 			}else {
 				return "ERROR";
 			}
-			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado));
+			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado), equipo_seleccionado);
 		}catch(IOException e) {
 			return "ERROR";
 		}
@@ -111,6 +112,14 @@ public class AgregarJugadorController extends ActionSupport {
 
 	public void setJugador(Jugador jugador) {
 		this.jugador = jugador;
+	}
+
+	public String getEquipo_seleccionado() {
+		return equipo_seleccionado;
+	}
+
+	public void setEquipo_seleccionado(String equipo_seleccionado) {
+		this.equipo_seleccionado = equipo_seleccionado;
 	}
 	
 }

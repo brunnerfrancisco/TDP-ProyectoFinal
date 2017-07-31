@@ -6,16 +6,26 @@ public class Equipo {
 
 	private String nombre;
 	private int cantidadJugadores;
+	private int cantidadInscriptos;
 	private LinkedList<Jugador> jugadores;
 	
 	public Equipo() {
 		this.jugadores = new LinkedList<Jugador>();
 	}
 
-	public Equipo(String nombre, int cantidadJugadores) {
+	public Equipo(String nombre, int cantidadJugadores, int cantidadInscriptos) {
 		this.nombre = nombre;
 		this.cantidadJugadores = cantidadJugadores;
+		this.cantidadInscriptos = cantidadInscriptos;
 		this.jugadores = new LinkedList<Jugador>();
+	}
+
+	public void agregarJugador(Jugador jugador) {
+		this.jugadores.add(jugador);
+	}
+
+	public void eliminarJugador(Jugador jugador) {
+		this.jugadores.remove(jugador);
 	}
 
 	public String getNombre() {
@@ -24,6 +34,14 @@ public class Equipo {
 
 	public int getCantidadJugadores() {
 		return cantidadJugadores;
+	}
+
+	public int getCantidadInscriptos() {
+		return cantidadInscriptos;
+	}
+
+	public void setCantidadInscriptos(int cantidadInscriptos) {
+		this.cantidadInscriptos = cantidadInscriptos;
 	}
 
 	public LinkedList<Jugador> getJugadores() {

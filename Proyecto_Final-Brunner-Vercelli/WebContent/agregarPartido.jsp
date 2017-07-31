@@ -45,6 +45,14 @@
 								<td><s:textfield name="cantidadJugadores"/></td>
 							</tr>
 							<tr>
+								<td><s:label>Nombre Equipo 1: </s:label></td>
+								<td><s:textfield name="nombreEquipo1"/></td>
+							</tr>
+							<tr>
+								<td><s:label>Nombre Equipo 2: </s:label></td>
+								<td><s:textfield name="nombreEquipo2"/></td>
+							</tr>
+							<tr>
 								<td><s:submit value="Agregar" title="Agregar" cssClass="btnAgregarPartido"/> </td>
 							</tr>
 						</table>

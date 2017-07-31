@@ -19,14 +19,13 @@ public class ColeccionPartidos {
 	 * Constructor: Abre el achivo en modo lectura donde estan almacenados los datos de los partidos y jugadores
 	 * 		y prepara las estructuras para cargar los datos del archivo
 	 * */
-	public ColeccionPartidos() throws IOException
-    {
+	public ColeccionPartidos() throws IOException {
 		String path = ServletActionContext.getRequest().getSession().getServletContext().getRealPath("/"+folderName);
-		File f= new File(path+"/"+fileName);
-		if(!f.exists()) {
+		File file = new File(path+"/"+fileName);
+		if(!file.exists()) {
 			Writer writer=null;
 			try {
-			    writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), "utf-8"));
+			    writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream(fileName), "utf-8" ) );
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			} finally {
@@ -38,10 +37,10 @@ public class ColeccionPartidos {
 			}
 		}
 		
-		FileReader fileReader=new FileReader(path+"/"+fileName);
-        BufferedReader bufferedReader=new BufferedReader(fileReader);
-        this.cantPartidos=0;
-        this.partidos=new LinkedList<Partido>();
+		FileReader fileReader = new FileReader(path+"/"+fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        this.cantPartidos = 0;
+        this.partidos = new LinkedList<Partido>();
         this.cargar(bufferedReader);
     }
 
@@ -51,6 +50,7 @@ public class ColeccionPartidos {
 	 * */
 	private void cargar(BufferedReader archivo) throws IOException {
         String cod = archivo.readLine();
+        //System.out.println("------------------------");
         while (cod != null) {
             Partido partido = new Partido();
             partido.setID_partido(Integer.parseInt(cod));
@@ -60,13 +60,21 @@ public class ColeccionPartidos {
             partido.setPrecio(Integer.parseInt(archivo.readLine()));
             partido.setCantidadJugadores(Integer.parseInt(archivo.readLine()));
 	        partido.setCantidadInscriptos(Integer.parseInt(archivo.readLine()));
-	            for(int i = 0; i < partido.getCantidadInscriptos(); i++) {
-	            	String nombre=archivo.readLine();
-	            	String apellido=archivo.readLine();
-	            	String dni=archivo.readLine();
-	            	partido.agregarJugador(new Jugador(nombre,apellido,dni));
-	            }
-	        
+	            //System.out.println("Lugar Partido: "+partido.getLugar());
+	        	for(int i = 0; i<2;i++) {
+	        		String nombreEquipo = archivo.readLine();//System.out.println("Nombre Equipo: "+nombreEquipo);
+	        		String cantidadJugadoresEquipo = archivo.readLine();//System.out.println("Cant Juga: "+cantidadJugadoresEquipo);
+	        		String cantidadInscriptosEquipo = archivo.readLine();//System.out.println("Cant Insc: "+cantidadInscriptosEquipo);
+	        		partido.setEquipo(new Equipo(nombreEquipo,Integer.parseInt(cantidadJugadoresEquipo),Integer.parseInt(cantidadInscriptosEquipo)),i);
+	        		//System.out.println("Equipos.getCantidadInscriptos(): "+partido.getEquipo(i).getCantidadInscriptos());
+	        		for(int j = 0; j < partido.getEquipo(i).getCantidadInscriptos(); j++) {
+		            	String nombre = archivo.readLine();//System.out.println("Jugador Nombre: "+nombre);
+		            	String apellido = archivo.readLine();//System.out.println("Jugador Apellido: "+apellido);
+		            	String dni = archivo.readLine();//System.out.println("Jugador DNI: "+dni);
+		            	partido.agregarJugador( new Jugador( nombre, apellido, dni ), nombreEquipo );
+		            }
+	        	}
+	          
             this.partidos.add(partido);
             this.cantPartidos++;
             cod = archivo.readLine();
@@ -79,9 +87,9 @@ public class ColeccionPartidos {
 	 * */
 	private void guardar() throws IOException
     {
-    	String path=ServletActionContext.getServletContext().getRealPath(folderName);
-		File f= new File(path);
-		if(!f.exists()) {
+    	String path = ServletActionContext.getServletContext().getRealPath(folderName);
+		File file = new File(path);
+		if(!file.exists()) {
 			Writer writer=null;
 			try {
 				writer = new BufferedWriter( new OutputStreamWriter( new FileOutputStream( fileName ), "utf-8" ) );
@@ -95,7 +103,7 @@ public class ColeccionPartidos {
 				}
 			}
 		}
-		FileWriter fileWriter=new FileWriter(path+"/"+fileName);
+		FileWriter fileWriter = new FileWriter(path+"/"+fileName);
 		int i=0;
         for( Partido partido : this.partidos )
         {
@@ -106,11 +114,15 @@ public class ColeccionPartidos {
             fileWriter.write(partido.getPrecio()+"\n");
             fileWriter.write(partido.getCantidadJugadores()+"\n");
             fileWriter.write(partido.getCantidadInscriptos()+"\n");
-            
-            for(Jugador jugador : partido.getInscriptos()) {
-            	fileWriter.write(jugador.getNombre()+"\n");
-            	fileWriter.write(jugador.getApellido()+"\n");
-            	fileWriter.write(jugador.getDNI()+"\n");
+            for(Equipo equipo : partido.getEquipos()) {
+            	fileWriter.write(equipo.getNombre()+"\n");
+            	fileWriter.write(equipo.getCantidadJugadores()+"\n");
+            	fileWriter.write(equipo.getCantidadInscriptos()+"\n");
+	            for(Jugador jugador : equipo.getJugadores()) {
+	            	fileWriter.write(jugador.getNombre()+"\n");
+	            	fileWriter.write(jugador.getApellido()+"\n");
+	            	fileWriter.write(jugador.getDNI()+"\n");
+	            }
             }
             i++;
         }
@@ -154,11 +166,16 @@ public class ColeccionPartidos {
 	 * @param ID_partido: ID del partido donde va a ser agregado el jugador
 	 * Agrega el jugador a la lista de jugadores del partido ID_partido y lo guarda en el archivo
 	 * */
-	public void agregarJugador(Jugador jugador, int ID_partido) {
+	public void agregarJugador(Jugador jugador, int ID_partido, String nombreEquipo) {
 		ValueStack stack = ActionContext.getContext().getValueStack();
         Partido partido = (Partido) stack.peek();
-		partido.agregarJugador(jugador);
+		partido.agregarJugador(jugador, nombreEquipo);
 		partido.setCantidadInscriptos(partido.getCantidadInscriptos()+1);
+		if(partido.getEquipo(0).getNombre().equals(nombreEquipo))
+			partido.getEquipo(0).setCantidadInscriptos(partido.getEquipo(0).getCantidadInscriptos()+1);
+		else
+			if(partido.getEquipo(1).getNombre().equals(nombreEquipo))
+				partido.getEquipo(1).setCantidadInscriptos(partido.getEquipo(1).getCantidadInscriptos()+1);
 		try {
 			guardar();
 		} catch (IOException e) {
@@ -172,20 +189,34 @@ public class ColeccionPartidos {
 	 * @param DNI_jugador: DNI del jugador a ser eliminado
 	 * Elimina el jugador de la lista de jugadores del partido ID_partido y guarda los datos en el archivo
 	 * */
-	public void eliminarJugador(int ID_partido, String DNI_jugador) {
+	public void eliminarJugador(int ID_partido,String nombreEquipo, String DNI_jugador) {
 		Partido encontre=null;
 		for(Partido partido : this.partidos) {
 			if(partido.getID_partido()==(ID_partido)) {
-				encontre=partido;
+				encontre = partido;
 				break;
 			}
 		}
 		if(encontre!=null) {
-			for(Jugador jugador : encontre.getInscriptos()) {
-				if(jugador.getDNI().equals(DNI_jugador)) {
-					encontre.getInscriptos().remove(jugador);
-					encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
-					break;
+			if(encontre.getEquipo(0).getNombre().equals(nombreEquipo)) {
+				for(Jugador jugador : encontre.getEquipos()[0].getJugadores()) {
+					if(jugador.getDNI().equals(DNI_jugador)) {
+						encontre.getEquipo(0).getJugadores().remove(jugador);
+						encontre.getEquipo(0).setCantidadInscriptos(encontre.getEquipo(0).getCantidadInscriptos()-1);
+						encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
+						break;
+					}
+				}
+			}else{
+				if(encontre.getEquipo(1).getNombre().equals(nombreEquipo)) {
+					for(Jugador jugador : encontre.getEquipo(1).getJugadores()) {
+						if(jugador.getDNI().equals(DNI_jugador)) {
+							encontre.getEquipo(1).getJugadores().remove(jugador);
+							encontre.getEquipo(1).setCantidadInscriptos(encontre.getEquipo(1).getCantidadInscriptos()-1);
+							encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
+							break;
+						}
+					}
 				}
 			}
 			try {
