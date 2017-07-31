@@ -3,6 +3,7 @@
 <%@ page import="models.ColeccionPartidos" %>
 <%@ page import="models.Partido" %>
 <%@ page import="models.Jugador" %>
+<%@ page import="models.Equipo" %>
 <%@ page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -35,15 +36,18 @@
 						ColeccionPartidos partidos=new ColeccionPartidos();
 						for(Partido partido : partidos.getPartidos())
 						{
-							for(Jugador jugador : partido.getInscriptos())
+							for(Equipo equipo : partido.getEquipos())
 							{
+								for(Jugador jugador : equipo.getJugadores())
+								{
 						%>
-							<tr>
-							<td><%out.println(jugador.getNombre()); %></td>
-							<td><%out.println(jugador.getApellido()); %></td>
-							<td><%out.println(jugador.getDNI()); %></td>
-							</tr>
+								<tr>
+								<td><%out.println(jugador.getNombre()); %></td>
+								<td><%out.println(jugador.getApellido()); %></td>
+								<td><%out.println(jugador.getDNI()); %></td>
+								</tr>
 						<%
+								}
 							} 
 						} 
 						%>

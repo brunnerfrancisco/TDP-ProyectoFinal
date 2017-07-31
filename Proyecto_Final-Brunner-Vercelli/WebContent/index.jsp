@@ -52,9 +52,7 @@
 								<s:form action="inscripcion">
 									<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
 									<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
-									<div class="botonInscribirse">
-										<s:submit cssClass="bntInscribirse" value="Inscribirse" />
-									</div>
+									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
 								</s:form>
 							</s:if>
 							<s:else>
