@@ -45,18 +45,15 @@
 							</table>
 							<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
 							<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
-							<s:property value="%{#cantidadJugadores}"/>
-							<s:property value="%{#cantidadInscriptos}"/>
-							<s:property value="%{#cantidadInscriptos < #cantidadJugadores}"/>
-							<s:if test="%{#cantidadInscriptos  #cantidadJugadores}">
+							<s:if test="%{#cantidadInscriptos == #cantidadJugadores}">
+								<div id="titPartidosDisponibles">Partido Completo</div>
+							</s:if>
+							<s:else>
 								<s:form action="inscripcion">
 									<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
 									<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
 									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
 								</s:form>
-							</s:if>
-							<s:else>
-								<div id="titPartidosDisponibles">Partido Completo</div>
 							</s:else>
 							<s:if test='%{#session.user != null}'>
 								<s:form action="eliminarPartido">
