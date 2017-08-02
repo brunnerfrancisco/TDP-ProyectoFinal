@@ -34,19 +34,20 @@
         	<result>/agregarPartido.jsp</result>
         </action>
         
-        <action name="inscripcion" class="actions.AgregarJugadorController" method="inscripcion">
-        	<result name="SUCCESS">/inscripcionPartido.jsp</result>
-        	<result name="ERROR">/inscripcionError.jsp</result>
+        <action name="registrarPartido" class="actions.AgregarPartidoController" method="execute">
+        	<result>/index.jsp</result>
+        	<result name="ERROR">/index.jsp</result>
+        	<result name="input">/agregarPartido.jsp</result>
+        </action>
+        
+        <action name="inscripcion" class="actions.InscripcionController" method="execute">
+        	<result>/inscripcionPartido.jsp</result>
+        	<result name="ERROR">/index.jsp</result>
         </action>
         
         <action name="inscripcionPartido" class="actions.AgregarJugadorController" method="execute">
-        	<result name="SUCCESS">/index.jsp</result>
-        	<result name="ERROR">/inscripcionError.jsp</result>
-        </action>
-        
-        <action name="registrarPartido" class="actions.AgregarPartidoController" method="execute">
-        	<result name="SUCCESS">/index.jsp</result>
-        	<result name="ERROR">/error.jsp</result>
+        	<result>/index.jsp</result>
+        	<result name="input">/index.jsp</result>
         </action>
         
         <action name="Login" class="actions.LoginAction" method="login">

@@ -5,7 +5,6 @@ import java.util.Map;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.*;
 
 public class LoginAction extends ActionSupport implements SessionAware {
 	private static final long serialVersionUID = 1L;
@@ -15,13 +14,22 @@ public class LoginAction extends ActionSupport implements SessionAware {
 	
 	
 	public String login() {
-		if (this.userName.equals("admin") && this.password.equals("admin"))
+		if (this.userName.equals("admin") && this.password.equals("admin")) {
 			session.put("user", this.userName);
-		else
-			addActionError("El usuario o la contraseña no son correctos");
-		return SUCCESS;
+			return SUCCESS;
+		}else {
+			addFieldError("errorLogin","El usuario o la contraseña no son correctos");
+			return "input";
+		}
 	}
-	
+
+	public void validate() {
+		if(userName.length()<=4 || userName.length()>=10)
+			addFieldError("userName","El nombre de usuario no es valido");
+		if(password.length()<=4 || password.length()>=10)
+			addFieldError("password","La contraseña no es valida");
+	}
+
 	public String logout() {
 		session.remove("user");
 		return SUCCESS;
@@ -31,8 +39,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		return userName;
 	}
 	
-	@RequiredStringValidator(message = "El nombre de usuario es un campo obligatorio.")
-    @StringLengthFieldValidator(minLength="4", maxLength="10", message="El nombre debe tener entre 4 y 10 caracteres")
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
@@ -41,8 +47,6 @@ public class LoginAction extends ActionSupport implements SessionAware {
 		return password;
 	}
 
-	@RequiredStringValidator(message = "La contraseña es un campo obligatorio.")
-    @StringLengthFieldValidator(minLength="4", maxLength="10", message="La contraseña debe tener entre 4 y 10 caracteres")
 	public void setPassword(String password) {
 		this.password = password;
 	}

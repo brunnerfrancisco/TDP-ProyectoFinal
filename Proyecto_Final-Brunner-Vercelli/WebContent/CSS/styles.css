@@ -131,15 +131,35 @@ td{
 	padding:5px;
 	background-color:#91A78D;
 	text-decoration:none;
+	border:medium none black;
 	margin:1px;
 	border-radius:5px;
 	text-shadow:none;
 	text-decoration:none;
 	color:#000000;
+	box-shadow: none;
 }
 
 .bntInscribirse:hover{
 	background-color:#394D35;
+	color:#FFFFFF;
+}
+
+.btnEliminar{
+	text-decoration:none;
+	background-color:#91A78D;
+	border:medium none black;
+	width:auto;
+	padding:5px;
+	text-shadow:none;
+	color:#000000;
+	box-shadow: none;
+	margin:1px;
+	border-radius:5px;
+}
+
+.btnEliminar:hover{
+	background-color:#206A40;
 	color:#FFFFFF;
 }
 
@@ -220,17 +240,31 @@ aside{
 	margin-bottom:3px;
 }
 
-#botonIngresar{
-	float:left;
+.btnIngresar{
 	width:200px;
 	text-align:center;
 	margin-top:3px;
 	margin-bottom:3px;
+	text-decoration:none;
+	background-color:#91A78D;
+	border:medium none black;
+	width:auto;
+	padding:5px;
+	text-shadow:none;
+	color:#000000;
+	box-shadow: none;
+	border-radius:5px;
+}
+
+.btnIngresar:hover{
+	color:#FFFFFF;
+	background-color:#394D35;
 }
 
 .btnAgregarPartido{
 	width:auto;
-	float:left;
+	border:medium none black;
+	box-shadow: none;
 	padding:5px;
 	background-color:#91A78D;
 	text-decoration:none;
@@ -243,6 +277,11 @@ aside{
 .btnAgregarPartido:hover{
 	background-color:#394D35;
 	color:#FFFFFF;
+}
+
+.centrar{
+	width: auto;
+	text-align: center;
 }
 
 #tablaAgregarPartido{

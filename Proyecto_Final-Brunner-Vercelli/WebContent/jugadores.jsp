@@ -57,17 +57,25 @@
 				<aside>
 					<s:if test='%{#session.user != null}'>
 						<div id="titLoguin">Bienvenido <s:property value="%{#session['user']}"/></div>
+						<s:fielderror />
 						<s:form action="LogOut" method="post">
-							<s:submit  cssClass="botonIngresar" value="Salir"/>
+							<s:hidden name="userName" value="admin"/>
+							<s:hidden name="password" value="admin"/>
+							<div class="centrar"><s:submit  cssClass="btnIngresar" value="Salir"/></div>
 						</s:form>
-						<s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a>
+						<div class="centrar"><s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a></div>
 					</s:if>
 					<s:else>
+						<s:fielderror />
+						<s:if test="hasActionErrors()">
+							<s:actionerror/>
+						</s:if>
 						<s:form action="Login" method="post">
 							<div id="titLoguin">Logueo</div>
-							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser"/>
-							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass"/>
-							<s:submit  cssClass="botonIngresar" value="Ingresar"/>
+							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser" value=""/>
+							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass" value=""/>
+							
+							<div class="centrar"><s:submit  cssClass="btnIngresar" value="Ingresar"/></div>
 						</s:form>
 					</s:else>
 				</aside>

@@ -30,7 +30,25 @@ public class AgregarPartidoController extends ActionSupport {
 		}catch (IOException e) {
 			return "ERROR";
 		}
-		return "SUCCESS";
+		return SUCCESS;
+	}
+
+	public void validate() {
+		if(lugar.length()==0){
+			addFieldError("lugar","El lugar es un campo requierido");
+		}else if(fecha.length()==0) {
+			addFieldError("fecha","La fecha es un campo requierido");
+		}else if(hora.length()==0) {
+			addFieldError("hora","La hora es un campo requierido");
+		}else if(precio==0) {
+			addFieldError("precio","El precio es un campo requierido");
+		}else if(cantidadJugadores==0) {
+			addFieldError("precio","La cantidad de jugadores es un campo requierido");
+		}else if(nombreEquipo1.length()==0) {
+			addFieldError("nombreEquipo1","El Nombre de Equipo 1 es un campo requierido");
+		}else if(nombreEquipo2.length()==0) {
+			addFieldError("nombreEquipo2","El Nombre de Equipo 1 es un campo requierido");
+		}
 	}
 
 	public String getLugar() {

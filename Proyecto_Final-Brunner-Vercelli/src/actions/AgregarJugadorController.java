@@ -42,36 +42,26 @@ public class AgregarJugadorController extends ActionSupport {
 				return "ERROR";
 			}
 			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado), equipo_seleccionado);
-		}catch(IOException e) {
+		}catch(IOException ex) {
 			return "ERROR";
 		}
-		return "SUCCESS";
+		return SUCCESS;
 	}
 
-	/**
-	 * incripcion(): String
-	 * Recupera el partido seleccionado y lo coloca en el tope de la pila
-	 * */
-	public String inscripcion()
-	{
-		try {
-			ValueStack stack = ActionContext.getContext().getValueStack();
-			ColeccionPartidos partidos = new ColeccionPartidos();
-			Partido aInscribir=null;
-			for(Partido partido : partidos.getPartidos()) {
-				if(partido.getID_partido()==Integer.parseInt(ID_seleccionado)) {
-					aInscribir=partido;
-				}
+	public void validate() {
+		if(nombre.length()==0) {
+			addFieldError("nombre","El nombre es un campo requerido");
+		}else if(apellido.length()==0) {
+			addFieldError("apellido","El apellido es un campo obligatorio");
+		}else if(dni.length()==0) {
+			addFieldError("dni","El DNI es un campo obligatorio");
+		}else {
+			try {
+				Integer.parseInt(dni);
+			}catch(NumberFormatException e) {
+				addFieldError("dni","El DNI debe ser un numero entero");
 			}
-			if(aInscribir!=null) {
-				stack.push(aInscribir);
-			}else {
-				return "ERROR";
-			}
-		}catch (IOException ex) {
-			return "ERROR";
 		}
-		return "SUCCESS";
 	}
 
 	public String getID_seleccionado() {

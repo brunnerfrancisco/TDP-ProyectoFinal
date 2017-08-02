@@ -11,7 +11,7 @@
 <html>
 	<head>
 		<title> Proyecto Final Bunner - Vercelli</title>
-		<link rel="stylesheet" href="CSS/styles.css?1.0.1">
+		<link rel="stylesheet" href="CSS/styles.css?1.1.0">
 		<link rel="icon" type="image/png" href="CSS/mifavicon.png" />
 	</head>
 	<body>
@@ -43,23 +43,12 @@
 								<tr><td>Inscriptos: </td><td><%out.println(partido.getCantidadInscriptos()); %></td></tr>
 								<tr><td>Precio: </td><td><%out.println(partido.getPrecio()); %></td></tr>
 							</table>
-							<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
-							<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
-							<s:if test="%{#cantidadInscriptos == #cantidadJugadores}">
-								<div id="titPartidosDisponibles">Partido Completo</div>
-							</s:if>
-							<s:else>
-								<s:form action="inscripcion">
-									<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
-									<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
-									<s:submit cssClass="bntInscribirse" value="Inscribirse" />
-								</s:form>
-							</s:else>
+							
 							<s:if test='%{#session.user != null}'>
 								<s:form action="eliminarPartido">
 									<s:set var="ID_partido1"><%out.println(partido.getID_partido()); %></s:set>
 									<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido1}"/>
-									<td><s:submit value="X" /></td>
+									<div class="centrar"><s:submit value="Eliminar Partido" cssClass="btnEliminar"/></div>
 								</s:form>
 							</s:if>
 							<div id="titInscriptos">Inscriptos:</div>
@@ -73,6 +62,22 @@
 								<td>Equipo: <%out.println(equipo.getNombre()); %></td>
 								<td>Jugadores: <%out.println(equipo.getCantidadJugadores()); %></td>
 								<td>Inscriptos: <%out.println(equipo.getCantidadInscriptos()); %></td>
+								<td>
+								<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
+								<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
+								<s:if test="%{#cantidadInscriptos == #cantidadJugadores}">
+									<div id="titPartidosDisponibles">Partido Completo</div>
+								</s:if>
+								<s:else>
+									<s:form action="inscripcion">
+										<s:set var="ID_partido0"><%out.println(partido.getID_partido()); %></s:set>
+										<s:set var="equipoSel"><%out.println(equipo.getNombre()); %></s:set>
+										<s:hidden name="ID_seleccionado" value="%{#ID_partido0}"/>
+										<s:hidden name="equipo_seleccionado" value="%{#equipoSel}"/>
+										<div class="centrar"><s:submit cssClass="bntInscribirse" value="Inscribirse" /></div>
+									</s:form>
+								</s:else>
+								</td>
 								</tr>
 							<%
 									for(Jugador jugador : equipo.getJugadores())
@@ -91,7 +96,7 @@
 											<s:hidden name="DNI_seleccionado" value="%{#DNI}"/>
 											<s:hidden name="ID_partido_seleccionado" value="%{#ID_partido2}"/>
 											<s:hidden name="equipo_seleccionado" value="%{#equipoSeleccionado}"/>
-											<td><s:submit value="X" /></td>
+											<td><s:submit value="Eliminar Jugador" cssClass="btnEliminar"/></td>
 										</s:form>
 									</s:if>
 								
@@ -114,22 +119,24 @@
 						<s:form action="LogOut" method="post">
 							<s:hidden name="userName" value="admin"/>
 							<s:hidden name="password" value="admin"/>
-							<s:submit  cssClass="botonIngresar" value="Salir"/>
+							<div class="centrar"><s:submit  cssClass="btnIngresar" value="Salir"/></div>
 						</s:form>
-						<s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a>
+						<div class="centrar"><s:a action="agregarPartido" cssClass="btnAgregarPartido">Agregar Partido</s:a></div>
 					</s:if>
 					<s:else>
-						<s:fielderror />
-						<s:if test="hasActionErrors()">
-							<s:actionerror/>
-						</s:if>
 						<s:form action="Login" method="post">
 							<div id="titLoguin">Logueo</div>
+							<s:fielderror fieldName="userName" />
+							<s:fielderror fieldName="password" />
 							<div id="labelUser">Usuario: </div><s:textfield name="userName" cssClass="inputUser" value=""/>
 							<div id="labelPass">Password: </div><s:password name="password" cssClass="inputPass" value=""/>
-							<s:submit  cssClass="botonIngresar" value="Ingresar"/>
+							
+							<div class="centrar"><s:submit  cssClass="btnIngresar" value="Ingresar"/></div>
 						</s:form>
 					</s:else>
+					<s:fielderror fieldName="nombre" />
+					<s:fielderror fieldName="apellido" />
+					<s:fielderror fieldName="dni" />
 				</aside>
 				<div id="separadorNavSec" style="float:left"></div>
 			</div>

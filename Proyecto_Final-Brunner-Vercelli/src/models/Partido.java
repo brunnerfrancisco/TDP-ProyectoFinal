@@ -1,5 +1,8 @@
 package models;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 public class Partido {
 
 	private int ID_partido;
@@ -109,6 +112,19 @@ public class Partido {
 	
 	public Equipo getEquipo(int i) {
 		return this.equipos[i];
+	}
+	
+	public LinkedList<String> getEquiposList0() {
+		LinkedList<String> equipos =  new LinkedList<String>();
+		equipos.addLast(this.equipos[0].getNombre());
+		equipos.addLast(this.equipos[1].getNombre());
+		return equipos;
+	}
+	
+	public Iterator<String> getEquiposList1() {
+		LinkedList<String> equipos =  new LinkedList<String>();
+		equipos.addLast(this.equipos[1].getNombre());
+		return equipos.iterator();
 	}
 	
 }
