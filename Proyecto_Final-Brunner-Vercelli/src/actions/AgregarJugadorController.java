@@ -7,6 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.util.ValueStack;
 
 import models.ColeccionPartidos;
+import models.Equipo;
 import models.Jugador;
 import models.Partido;
 
@@ -40,6 +41,14 @@ public class AgregarJugadorController extends ActionSupport {
 				stack.push(aInscribir);
 			}else {
 				return "ERROR";
+			}
+			boolean encontre=false;
+			for(Equipo equipo : aInscribir.getEquipos())
+				for(Jugador jugador : equipo.getJugadores())
+					encontre=jugador.getDNI().equals(dni);
+			if(encontre) {
+				addFieldError("dni","El jugador ingresado ya se encuentra en el partido");
+				return "input";
 			}
 			partidos.agregarJugador(jugador, Integer.parseInt(ID_seleccionado), equipo_seleccionado);
 		}catch(IOException ex) {

@@ -63,10 +63,10 @@
 								<td>Jugadores: <%out.println(equipo.getCantidadJugadores()); %></td>
 								<td>Inscriptos: <%out.println(equipo.getCantidadInscriptos()); %></td>
 								<td>
-								<s:set var="cantidadInscriptos"><%out.println(partido.getCantidadInscriptos()); %></s:set>
-								<s:set var="cantidadJugadores"><%out.println(partido.getCantidadJugadores()); %></s:set>
+								<s:set var="cantidadInscriptos"><%out.println(equipo.getCantidadInscriptos()); %></s:set>
+								<s:set var="cantidadJugadores"><%out.println(equipo.getCantidadJugadores()); %></s:set>
 								<s:if test="%{#cantidadInscriptos == #cantidadJugadores}">
-									<div id="titPartidosDisponibles">Partido Completo</div>
+									Equipo Completo
 								</s:if>
 								<s:else>
 									<s:form action="inscripcion">

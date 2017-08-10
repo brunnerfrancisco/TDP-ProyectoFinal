@@ -197,26 +197,17 @@ public class ColeccionPartidos {
 				break;
 			}
 		}
-		if(encontre!=null) {
-			if(encontre.getEquipo(0).getNombre().equals(nombreEquipo)) {
-				for(Jugador jugador : encontre.getEquipos()[0].getJugadores()) {
-					if(jugador.getDNI().equals(DNI_jugador)) {
-						encontre.getEquipo(0).getJugadores().remove(jugador);
-						encontre.getEquipo(0).setCantidadInscriptos(encontre.getEquipo(0).getCantidadInscriptos()-1);
-						encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
-						break;
-					}
-				}
-			}else{
-				if(encontre.getEquipo(1).getNombre().equals(nombreEquipo)) {
-					for(Jugador jugador : encontre.getEquipo(1).getJugadores()) {
-						if(jugador.getDNI().equals(DNI_jugador)) {
-							encontre.getEquipo(1).getJugadores().remove(jugador);
-							encontre.getEquipo(1).setCantidadInscriptos(encontre.getEquipo(1).getCantidadInscriptos()-1);
-							encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
-							break;
-						}
-					}
+		Equipo equipo=null;
+		for(Equipo e : encontre.getEquipos())
+			if(e.getNombre().equals(nombreEquipo))
+				equipo=e;
+		if(encontre!=null && equipo!=null) {
+			for(Jugador jugador : equipo.getJugadores()) {
+				if(jugador.getDNI().equals(DNI_jugador)) {
+					equipo.getJugadores().remove(jugador);
+					equipo.setCantidadInscriptos(equipo.getCantidadInscriptos()-1);
+					encontre.setCantidadInscriptos(encontre.getCantidadInscriptos()-1);
+					break;
 				}
 			}
 			try {
